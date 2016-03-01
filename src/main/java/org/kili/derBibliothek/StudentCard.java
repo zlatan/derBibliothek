@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class StudentCard {
     @Id
-    private Long id;
+    private Integer id;
 
     private Date beginDate;
     private Date endDate;

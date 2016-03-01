@@ -42,5 +42,4 @@ public class Book {
     public void setBarCode(String barCode) {
         this.barCode = barCode;
     }
-
 }

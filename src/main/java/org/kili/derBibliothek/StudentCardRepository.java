@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "card", path = "card")
-public interface StudentCardRepository extends CrudRepository<Student, Long> {
+public interface StudentCardRepository extends CrudRepository<StudentCard, Long> {
 
 }

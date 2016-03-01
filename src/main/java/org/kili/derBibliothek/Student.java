@@ -32,8 +32,8 @@ public class Student {
     @Column(name="qr_code", nullable = false, unique = true)
     private String qRCode;
 
-//    @OneToOne()
-//    @PrimaryKeyJoinColumn
+    @OneToOne()
+    @PrimaryKeyJoinColumn
     @Transient
     private StudentCard libraryCard;
 
@@ -77,11 +77,11 @@ public class Student {
         this.clazz = clazz;
     }
 
-    public String getQRCode() {
+    public String getqRCode() {
         return qRCode;
     }
 
-    public void setQRCode(String qrCode) {
+    public void setqRCode(String qrCode) {
         this.qRCode = qrCode;
     }
 

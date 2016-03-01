@@ -11,6 +11,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "student", path = "student")
 public interface StudentRepository extends CrudRepository<Student, Long> {
 
-//    Student findByQRCode(@Param("qRCode") String qRCode);
+    Student findByQRCode(@Param("qRCode") String qRCode);
 }
 
