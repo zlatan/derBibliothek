@@ -1,9 +1,6 @@
 package org.kili.derBibliothek;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by zlatan on 29.02.16.
@@ -14,33 +11,36 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
-    private String bookTitle;
-    private String bookAuthor;
-    private String bookBarCode;
+    private Integer id;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
+    private String author;
+    @Column(nullable = false, unique = true)
+    private String barCode;
 
-    public String getBookTitle() {
-        return bookTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getBookBarCode() {
-        return bookBarCode;
+    public String getBarCode() {
+        return barCode;
     }
 
-    public void setBookBarCode(String bookBarCode) {
-        this.bookBarCode = bookBarCode;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
 }

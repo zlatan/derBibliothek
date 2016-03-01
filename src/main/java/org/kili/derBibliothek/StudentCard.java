@@ -1,7 +1,9 @@
 package org.kili.derBibliothek;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zlatan on 29.02.16.
@@ -9,23 +11,13 @@ import java.util.Date;
 @Entity
 public class StudentCard {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-
-//    @OneToOne
-//    @PrimaryKeyJoinColumn
-    private long book_id;
     private Date beginDate;
     private Date endDate;
 
-    public long getBook_id() {
-        return book_id;
-    }
-
-    public void setBook_id(long book_id) {
-        this.book_id = book_id;
-    }
+    @OneToMany
+    private List<Book> borrowedBooks;
 
     public Date getBeginDate() {
         return beginDate;
@@ -41,5 +33,13 @@ public class StudentCard {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public List<Book> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void setBorrowedBooks(List<Book> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
     }
 }

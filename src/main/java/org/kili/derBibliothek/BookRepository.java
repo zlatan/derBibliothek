@@ -11,6 +11,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "book", path = "book")
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-    Book findByBookBarCode(@Param("bookBarCode") String bookBarCode);
+    Book findByBarCode(@Param("barCode") String barCode);
 
 }

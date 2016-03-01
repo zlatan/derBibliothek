@@ -12,64 +12,84 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    private Integer id;
 
-//    @MapsId
-//    @OneToOne
-//    @JoinColumn(name="id")
+    @Column(nullable = false)
+    private Integer classNumber;
 
-    private int studentClassNumber;
-    private int studentEnrollYear;
-    private String studentFirstName;
-    private String studentLastName;
-    private String studentClass;
-    private String studentQRCode;
+    @Column(nullable = false)
+    private Integer enrollYear;
 
-    public int getStudentClassNumber() {
-        return studentClassNumber;
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(name="class")
+    private String clazz;
+
+    @Column(name="qr_code", nullable = false, unique = true)
+    private String qRCode;
+
+//    @OneToOne()
+//    @PrimaryKeyJoinColumn
+    @Transient
+    private StudentCard libraryCard;
+
+    public Integer getClassNumber() {
+        return classNumber;
     }
 
-    public void setStudentClassNumber(int studentClassNumber) {
-        this.studentClassNumber = studentClassNumber;
+    public void setClassNumber(Integer classNumber) {
+        this.classNumber = classNumber;
     }
 
-    public int getStudentEnrollYear() {
-        return studentEnrollYear;
+    public Integer getEnrollYear() {
+        return enrollYear;
     }
 
-    public void setStudentEnrollYear(int studentEnrollYear) {
-        this.studentEnrollYear = studentEnrollYear;
+    public void setEnrollYear(Integer enrollYear) {
+        this.enrollYear = enrollYear;
     }
 
-    public String getStudentFirstName() {
-        return studentFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setStudentFirstName(String studentFirstName) {
-        this.studentFirstName = studentFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getStudentLastName() {
-        return studentLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setStudentLastName(String studentLastName) {
-        this.studentLastName = studentLastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getStudentClass() {
-        return studentClass;
+    public String getClazz() {
+        return clazz;
     }
 
-    public void setStudentClass(String studentClass) {
-        this.studentClass = studentClass;
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
     }
 
-    public String getStudentQRCode() {
-        return studentQRCode;
+    public String getQRCode() {
+        return qRCode;
     }
 
-    public void setStudentQRCode(String studentQRCode) {
-        this.studentQRCode = studentQRCode;
+    public void setQRCode(String qrCode) {
+        this.qRCode = qrCode;
+    }
+
+    public StudentCard getLibraryCard() {
+        return libraryCard;
+    }
+
+    public void setLibraryCard(StudentCard libraryCard) {
+        this.libraryCard = libraryCard;
     }
 }
