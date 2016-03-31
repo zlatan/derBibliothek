@@ -13,7 +13,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private Integer classNumber;
@@ -32,6 +32,17 @@ public class Student {
 
     @Column(name="qr_code", nullable = false, unique = true)
     private String qRCode;
+
+    protected Student() {}
+
+    public Student(Integer classNumber, Integer enrollYear, String firstName, String lastName, String clazz, String qRCode) {
+        this.classNumber = classNumber;
+        this.enrollYear = enrollYear;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.clazz = clazz;
+        this.qRCode = qRCode;
+    }
 
 
     //@OneToMany

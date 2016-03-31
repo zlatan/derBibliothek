@@ -2,7 +2,6 @@ package org.kili.derBibliothek;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by zlatan on 29.02.16.
@@ -11,17 +10,26 @@ import java.util.List;
 public class LibraryCardRecord {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     private Date beginDate;
     private Date endDate;
 
+    private LibraryCardRecord() {}
+
+
+    public LibraryCardRecord(Date beginDate, Student student, Book borrowedBook) {
+        this.beginDate = beginDate;
+        this.student = student;
+        this.borrowedBook = borrowedBook;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Student student;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    private Book borrowedBooks;
+    private Book borrowedBook;
 
     public Date getBeginDate() {
         return beginDate;
@@ -47,11 +55,19 @@ public class LibraryCardRecord {
         this.student = student;
     }
 
-    public Book getBorrowedBooks() {
-        return borrowedBooks;
+    public Book getBorrowedBook() {
+        return borrowedBook;
     }
 
-    public void setBorrowedBooks(Book borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
+    public void setBorrowedBook(Book borrowedBook) {
+        this.borrowedBook = borrowedBook;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Book[id=%d, beginDate='%s', endDate='%s' ]",
+                id, beginDate, endDate );
+    }
+
 }

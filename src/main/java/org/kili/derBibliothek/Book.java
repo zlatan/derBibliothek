@@ -13,7 +13,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -25,10 +25,10 @@ public class Book {
     private String volume;
 
     @Column(nullable = false)
-    private Date yearPublishing;
+    private String yearPublishing;
 
     @Column(nullable = false)
-    private Float price;
+    private Double price;
 
     @Column(nullable = false)
     private String signature;
@@ -39,9 +39,22 @@ public class Book {
     @Column(nullable = false, unique = true)
     private String barCode;
 
-    @OneToMany(mappedBy = "borrowedBooks")
+    @OneToMany(mappedBy = "borrowedBook")
     private List<LibraryCardRecord> libraryCardRecord;
 
+
+    protected Book () {}
+
+    public Book(String title, String author, String volume, String yearPublishing, Double price, String signature, String deduction, String barCode) {
+        this.title = title;
+        this.author = author;
+        this.volume = volume;
+        this.yearPublishing = yearPublishing;
+        this.price = price;
+        this.signature = signature;
+        this.deduction = deduction;
+        this.barCode = barCode;
+    }
 
     public String getTitle() {
         return title;
@@ -67,19 +80,19 @@ public class Book {
         this.volume = volume;
     }
 
-    public Date getYearPublishing() {
+    public String getYearPublishing() {
         return yearPublishing;
     }
 
-    public void setYearPublishing(Date yearPublishing) {
+    public void setYearPublishing(String yearPublishing) {
         this.yearPublishing = yearPublishing;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
