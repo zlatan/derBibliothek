@@ -5,6 +5,7 @@ package org.kili.derBibliothek;
  */
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -32,10 +33,12 @@ public class Student {
     @Column(name="qr_code", nullable = false, unique = true)
     private String qRCode;
 
-    @OneToOne()
-    @PrimaryKeyJoinColumn
-    @Transient
-    private StudentCard libraryCard;
+
+    //@OneToMany
+    //@JoinTable(name = "STUDENT_LIBCARD", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "LIBCARD_ID"))
+    //Alternative Variant for One to Many Relation
+    @OneToMany(mappedBy = "student")
+    private List<LibraryCardRecord> libraryCardRecord;
 
     public Integer getClassNumber() {
         return classNumber;
@@ -81,15 +84,17 @@ public class Student {
         return qRCode;
     }
 
-    public void setqRCode(String qrCode) {
-        this.qRCode = qrCode;
+    public void setqRCode(String qRCode) {
+        this.qRCode = qRCode;
     }
 
-    public StudentCard getLibraryCard() {
-        return libraryCard;
+    public List<LibraryCardRecord> getLibraryCardRecord() {
+        return libraryCardRecord;
     }
 
-    public void setLibraryCard(StudentCard libraryCard) {
-        this.libraryCard = libraryCard;
+    public void setLibraryCardRecord(List<LibraryCardRecord> libraryCardRecord) {
+        this.libraryCardRecord = libraryCardRecord;
     }
+
+
 }

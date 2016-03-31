@@ -1,7 +1,6 @@
 package org.kili.derBibliothek;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,15 +8,20 @@ import java.util.List;
  * Created by zlatan on 29.02.16.
  */
 @Entity
-public class StudentCard {
+public class LibraryCardRecord {
+
     @Id
     private Integer id;
 
     private Date beginDate;
     private Date endDate;
 
-    @OneToMany
-    private List<Book> borrowedBooks;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Student student;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Book borrowedBooks;
 
     public Date getBeginDate() {
         return beginDate;
@@ -35,11 +39,19 @@ public class StudentCard {
         this.endDate = endDate;
     }
 
-    public List<Book> getBorrowedBooks() {
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Book getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(List<Book> borrowedBooks) {
+    public void setBorrowedBooks(Book borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 }
