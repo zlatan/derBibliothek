@@ -16,5 +16,4 @@ public interface LibraryCardRecordRepository extends CrudRepository<LibraryCardR
     LibraryCardRecord findByStudentAndBorrowedBook(Student student, Book borrowedBook); // AND
     LibraryCardRecord findByStudentAndBorrowedBookAndEndDateIsNull(Student student, Book borrowedBook);
 
-
 }
