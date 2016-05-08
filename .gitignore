@@ -24,6 +24,9 @@ target/
 # IntelliJ
 /out/
 
+src/main/resources/static/node_modules/
+/src/main/resources/static/node_modules/
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 

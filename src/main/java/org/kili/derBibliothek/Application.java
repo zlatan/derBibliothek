@@ -28,12 +28,14 @@ public class Application {
             brepository.save(new Book("Reason","G.W.F. Hegel" , "1", "1995", 16.29, "signatura", "11-11.1.2111","23432"));
             srepository.save(new Student(12,1999,"Muncho","Penchev","11A","qwe123ds2vfve"));
             srepository.save(new Student(21,1999,"Pencho","Munchev","11A","afwef24543253"));
-
+/*
             BookManagment book= new BookManagment(brepository,srepository,lrepository);
             book.BorrowBook("qwe123ds2vfve","23244532");
             book.BorrowBook("afwef24543253","12232432");
             book.UnBorrowBook("afwef24543253","12232432");
             book.UnBorrowBook("qwe123ds2vfve","23244532");
+
+*/
         };
     }
 
