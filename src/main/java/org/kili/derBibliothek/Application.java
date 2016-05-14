@@ -26,6 +26,16 @@ public class Application {
             brepository.save(new Book("Reason in History","G.W.F. Hegel" , "1", "1995", 16.29, "signatura", "11-11.1.2111","23244532"));
             brepository.save(new Book("Singularity Is Near", "Ray Kurzweil", "1", "2005",15.63,"signatura","15-12.04.2011","23411245"));
             brepository.save(new Book("Reason","G.W.F. Hegel" , "1", "1995", 16.29, "signatura", "11-11.1.2111","23432"));
+	        brepository.save(new Book("Number 5","Author2" , "2", "1995", 16.29, "signatura", "11-11.1.2111","234231232132473287"));
+            brepository.save(new Book("Number 6","Author3" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490323131287"));
+            brepository.save(new Book("Number 7","Author4" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490324667387"));
+            brepository.save(new Book("Number 8","Author5" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490324213213287"));
+            brepository.save(new Book("Number 9","Author6" , "2", "1995", 16.29, "signatura", "11-11.1.2111","2349032434587"));
+            brepository.save(new Book("Number 10","Autho7r" , "2", "1995", 16.29, "signatura", "11-11.1.2111","2349032473457"));
+            brepository.save(new Book("Number 11","Autho8r" , "2", "1995", 16.29, "signatura", "11-11.1.2111","234903247328425"));
+
+
+
             srepository.save(new Student(12,1999,"Muncho","Penchev","11A","qwe123ds2vfve"));
             srepository.save(new Student(21,1999,"Pencho","Munchev","11A","afwef24543253"));
 /*
