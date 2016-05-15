@@ -23,6 +23,7 @@ public class EventHandler {
     static final String MESSAGE_PREFIX = "/topic";
 
 
+
     @Autowired
     public EventHandler(SimpMessagingTemplate websocket, EntityLinks entityLinks) {
         this.websocket = websocket;

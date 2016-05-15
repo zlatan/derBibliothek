@@ -15,6 +15,7 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     static final String MESSAGE_PREFIX = "/topic";
 
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         stompEndpointRegistry.addEndpoint("/books").withSockJS();

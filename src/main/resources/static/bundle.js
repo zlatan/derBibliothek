@@ -22429,8 +22429,6 @@
 
 	var FETCH_WEATHER = exports.FETCH_WEATHER = 'FETCH_WEATHER';
 
-	console.log('FETCH_WEATHER-ACTION');
-
 	function fetchWeather(size, page, sort) {
 	  var url = '/' + config.DEFALT_ENDPOINT + '?size=' + size + '&page=' + page + '&sort=' + sort;
 	  var request = _axios2.default.get(url, { baseURL: config.DEFALT_BASE_URL, timeout: 1000,
@@ -23666,7 +23664,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function searchAction(author) {
-	  console.log("searchAction");
 	  var url = '/' + config.DEFALT_ENDPOINT + '/search/findByAuthor?author=' + author;
 	  var request = _axios2.default.get(url, { baseURL: config.DEFALT_BASE_URL, timeout: 1000,
 	    validateStatus: function validateStatus(status) {
@@ -32854,7 +32851,6 @@
 	  });
 
 	  _axios2.default.patch(url, data).catch(function (response) {
-	    console.log(response);
 	    alert("Status code: ".concat(response.status));
 	  });
 	}
@@ -34212,7 +34208,6 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var action = arguments[1];
 
-	  console.log(action);
 	  switch (action.type) {
 	    case _index.FETCH_WEATHER:
 	      return [action.payload.data].concat(_toConsumableArray(state));
