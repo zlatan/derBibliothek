@@ -20318,17 +20318,35 @@
 	var BookList = function (_Component) {
 		_inherits(BookList, _Component);
 
-		function BookList() {
+		function BookList(props) {
 			_classCallCheck(this, BookList);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).call(this, props));
+
+			_this.refreshCurrentPage = _this.refreshCurrentPage.bind(_this);
+			return _this;
 		}
 
 		_createClass(BookList, [{
+			key: 'refreshCurrentPage',
+			value: function (_refreshCurrentPage) {
+				function refreshCurrentPage() {
+					return _refreshCurrentPage.apply(this, arguments);
+				}
+
+				refreshCurrentPage.toString = function () {
+					return _refreshCurrentPage.toString();
+				};
+
+				return refreshCurrentPage;
+			}(function () {
+				console.log(refreshCurrentPage);
+			})
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.props.fetchWeather(config.DEFALT_PAGE_SIZE, config.DEFALT_PAGE_NUMBER, config.DEFALT_SORT_CRITERION);
-				stompClient.register([{ route: '/topic/newEmployee', callback: this.refreshAndGoToLastPage }, { route: '/topic/updateEmployee', callback: this.refreshCurrentPage }, { route: '/topic/deleteEmployee', callback: this.refreshCurrentPage }]);
+				stompClient.register([{ route: '/topic/newEmployee', callback: this.refreshCurrentPage }, { route: '/topic/updateEmployee', callback: this.refreshCurrentPage }, { route: '/topic/deleteEmployee', callback: this.refreshCurrentPage }]);
 			}
 		}, {
 			key: 'render',
@@ -23637,8 +23655,9 @@
 	var DEFALT_PAGE_NUMBER = exports.DEFALT_PAGE_NUMBER = 0;
 	var DEFALT_SORT_CRITERION = exports.DEFALT_SORT_CRITERION = 'id,asc';
 	var DEFALT_ENDPOINT = exports.DEFALT_ENDPOINT = 'book';
-	var DEFALT_BASE_URL = exports.DEFALT_BASE_URL = 'http://localhost:8090/api';
-	// export const DEFALT_BASE_URL ='/api'; <<< in spring
+
+	// export const DEFALT_BASE_URL ='http://localhost:8090/api';
+	var DEFALT_BASE_URL = exports.DEFALT_BASE_URL = '/api';
 
 /***/ },
 /* 222 */
@@ -23694,9 +23713,11 @@
 	__webpack_require__(288);
 
 	function register(registrations) {
+		console.log("in registrations");
 		var socket = SockJS('/books');
 		var stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
+			console.log("in stompClient.connect");
 			registrations.forEach(function (registration) {
 				stompClient.subscribe(registration.route, registration.callback);
 			});
