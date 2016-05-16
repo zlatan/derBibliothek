@@ -9,7 +9,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.webmvc.support.ETag;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 @Component
 public class SimpleCORSFilter implements Filter {
@@ -24,7 +28,6 @@ public class SimpleCORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, PATCH");
-    //  response.setHeader("Access-Control-Expose-Headers", "kili");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
 
@@ -37,6 +40,11 @@ public class SimpleCORSFilter implements Filter {
 
     @Override
     public void destroy() {
+    }
+
+    @Bean
+    public Filter shallowEtagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
     }
 
 }
