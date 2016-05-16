@@ -20198,23 +20198,23 @@
 
 	var _book_list2 = _interopRequireDefault(_book_list);
 
-	var _create = __webpack_require__(289);
+	var _create = __webpack_require__(223);
 
 	var _create2 = _interopRequireDefault(_create);
 
-	var _read = __webpack_require__(311);
+	var _read = __webpack_require__(245);
 
 	var _read2 = _interopRequireDefault(_read);
 
-	var _update = __webpack_require__(312);
+	var _update = __webpack_require__(246);
 
 	var _update2 = _interopRequireDefault(_update);
 
-	var _delete = __webpack_require__(314);
+	var _delete = __webpack_require__(248);
 
 	var _delete2 = _interopRequireDefault(_delete);
 
-	var _pager = __webpack_require__(316);
+	var _pager = __webpack_require__(250);
 
 	var _pager2 = _interopRequireDefault(_pager);
 
@@ -20313,40 +20313,19 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var stompClient = __webpack_require__(223);
-
 	var BookList = function (_Component) {
 		_inherits(BookList, _Component);
 
-		function BookList(props) {
+		function BookList() {
 			_classCallCheck(this, BookList);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).call(this, props));
-
-			_this.refreshCurrentPage = _this.refreshCurrentPage.bind(_this);
-			return _this;
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).apply(this, arguments));
 		}
 
 		_createClass(BookList, [{
-			key: 'refreshCurrentPage',
-			value: function (_refreshCurrentPage) {
-				function refreshCurrentPage() {
-					return _refreshCurrentPage.apply(this, arguments);
-				}
-
-				refreshCurrentPage.toString = function () {
-					return _refreshCurrentPage.toString();
-				};
-
-				return refreshCurrentPage;
-			}(function () {
-				console.log(refreshCurrentPage);
-			})
-		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.props.fetchWeather(config.DEFALT_PAGE_SIZE, config.DEFALT_PAGE_NUMBER, config.DEFALT_SORT_CRITERION);
-				stompClient.register([{ route: '/topic/newEmployee', callback: this.refreshCurrentPage }, { route: '/topic/updateEmployee', callback: this.refreshCurrentPage }, { route: '/topic/deleteEmployee', callback: this.refreshCurrentPage }]);
 			}
 		}, {
 			key: 'render',
@@ -23657,6 +23636,7 @@
 	var DEFALT_ENDPOINT = exports.DEFALT_ENDPOINT = 'book';
 
 	// export const DEFALT_BASE_URL ='http://localhost:8090/api';
+
 	var DEFALT_BASE_URL = exports.DEFALT_BASE_URL = '/api';
 
 /***/ },
@@ -23683,7 +23663,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function searchAction(author) {
-	  var url = '/' + config.DEFALT_ENDPOINT + '/search/findByAuthor?author=' + author;
+	  var url = '/' + config.DEFALT_ENDPOINT + '/search/findByAuthorContainingIgnoreCase?author=' + author;
 	  var request = _axios2.default.get(url, { baseURL: config.DEFALT_BASE_URL, timeout: 1000,
 	    validateStatus: function validateStatus(status) {
 	      if (status != 200) {
@@ -23709,15 +23689,3393 @@
 
 	'use strict';
 
-	var SockJS = __webpack_require__(224);
-	__webpack_require__(288);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactModal = __webpack_require__(224);
+
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+
+	var _create = __webpack_require__(244);
+
+	var _create2 = _interopRequireDefault(_create);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Create = function (_Component) {
+	  _inherits(Create, _Component);
+
+	  function Create(props) {
+	    _classCallCheck(this, Create);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Create).call(this, props));
+
+	    _this.state = { modalIsOpen: false };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
+	    _this.handleSaveClicked = _this.handleSaveClicked.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Create, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({ modalIsOpen: true });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleModalCloseRequest',
+	    value: function handleModalCloseRequest() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleSaveClicked',
+	    value: function handleSaveClicked(e) {
+	      var _this2 = this;
+
+	      e.preventDefault();
+	      var newBook = {};
+	      var atributes = ["title", "author", "volume", "yearPublishing", "price", "signature", "deduction", "barCode"];
+	      atributes.map(function (element) {
+	        newBook[element] = _reactDom2.default.findDOMNode(_this2.refs[element]).value.trim();
+	      });
+	      (0, _create2.default)(newBook);
+	      //console.log(newBook);
+	      this.handleModalCloseRequest();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mybtn' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-success btn-primary', onClick: this.openModal },
+	          ' ',
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' }),
+	          ' Create'
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            className: 'Modal__Bootstrap modal-dialog',
+	            closeTimeoutMS: 150,
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.handleModalCloseRequest
+	          },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-header' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'close', onClick: this.handleModalCloseRequest },
+	                _react2.default.createElement(
+	                  'span',
+	                  { 'aria-hidden': 'true' },
+	                  '×'
+	                ),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sr-only' },
+	                  'Close'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'h4',
+	                { className: 'modal-title' },
+	                'Modal title'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-body' },
+	              _react2.default.createElement(
+	                'h4',
+	                null,
+	                'Really long content...'
+	              ),
+	              _react2.default.createElement(
+	                'form',
+	                { className: 'form-inline' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'exampleInputName2' },
+	                    'price'
+	                  ),
+	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'exampleInputName2', placeholder: 'price', ref: 'price' })
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'exampleInputName2' },
+	                    'signature'
+	                  ),
+	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'exampleInputName2', placeholder: 'signature', ref: 'signature' })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'form',
+	                { className: 'form-horizontal' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'title'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'title', ref: 'title' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'author'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'author', ref: 'author' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'volume'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'volume', ref: 'volume' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'year'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'yearPublishing', ref: 'yearPublishing' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'deduction'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'deduction', ref: 'deduction' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                    'barCode'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10' },
+	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'barCode', ref: 'barCode' })
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-footer' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	                'Close'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-primary', onClick: this.handleSaveClicked },
+	                'Create'
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Create;
+	}(_react.Component);
+
+	exports.default = Create;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(225);
+
+
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(2);
+	var ReactDOM = __webpack_require__(34);
+	var ExecutionEnvironment = __webpack_require__(226);
+	var ModalPortal = React.createFactory(__webpack_require__(227));
+	var ariaAppHider = __webpack_require__(242);
+	var elementClass = __webpack_require__(243);
+	var renderSubtreeIntoContainer = __webpack_require__(34).unstable_renderSubtreeIntoContainer;
+	var Assign = __webpack_require__(231);
+
+	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
+	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
+
+	var Modal = React.createClass({
+
+	  displayName: 'Modal',
+	  statics: {
+	    setAppElement: function(element) {
+	        AppElement = ariaAppHider.setElement(element);
+	    },
+	    injectCSS: function() {
+	      "production" !== process.env.NODE_ENV
+	        && console.warn('React-Modal: injectCSS has been deprecated ' +
+	                        'and no longer has any effect. It will be removed in a later version');
+	    }
+	  },
+
+	  propTypes: {
+	    isOpen: React.PropTypes.bool.isRequired,
+	    style: React.PropTypes.shape({
+	      content: React.PropTypes.object,
+	      overlay: React.PropTypes.object
+	    }),
+	    appElement: React.PropTypes.instanceOf(SafeHTMLElement),
+	    onAfterOpen: React.PropTypes.func,
+	    onRequestClose: React.PropTypes.func,
+	    closeTimeoutMS: React.PropTypes.number,
+	    ariaHideApp: React.PropTypes.bool,
+	    shouldCloseOnOverlayClick: React.PropTypes.bool
+	  },
+
+	  getDefaultProps: function () {
+	    return {
+	      isOpen: false,
+	      ariaHideApp: true,
+	      closeTimeoutMS: 0,
+	      shouldCloseOnOverlayClick: true
+	    };
+	  },
+
+	  componentDidMount: function() {
+	    this.node = document.createElement('div');
+	    this.node.className = 'ReactModalPortal';
+	    AppElement.appendChild(this.node);
+	    this.renderPortal(this.props);
+	  },
+
+	  componentWillReceiveProps: function(newProps) {
+	    this.renderPortal(newProps);
+	  },
+
+	  componentWillUnmount: function() {
+	    ReactDOM.unmountComponentAtNode(this.node);
+	    AppElement.removeChild(this.node);
+	    elementClass(document.body).remove('ReactModal__Body--open');
+	  },
+
+	  renderPortal: function(props) {
+	    if (props.isOpen) {
+	      elementClass(document.body).add('ReactModal__Body--open');
+	    } else {
+	      elementClass(document.body).remove('ReactModal__Body--open');
+	    }
+
+	    if (props.ariaHideApp) {
+	      ariaAppHider.toggle(props.isOpen, props.appElement);
+	    }
+
+	    this.portal = renderSubtreeIntoContainer(this, ModalPortal(Assign({}, props, {defaultStyles: Modal.defaultStyles})), this.node);
+	  },
+
+	  render: function () {
+	    return React.DOM.noscript();
+	  }
+	});
+
+	Modal.defaultStyles = {
+	  overlay: {
+	    position        : 'fixed',
+	    top             : 0,
+	    left            : 0,
+	    right           : 0,
+	    bottom          : 0,
+	    backgroundColor : 'rgba(255, 255, 255, 0.75)'
+	  },
+	  content: {
+	    position                : 'absolute',
+	    top                     : '40px',
+	    left                    : '40px',
+	    right                   : '40px',
+	    bottom                  : '40px',
+	    border                  : '1px solid #ccc',
+	    background              : '#fff',
+	    overflow                : 'auto',
+	    WebkitOverflowScrolling : 'touch',
+	    borderRadius            : '4px',
+	    outline                 : 'none',
+	    padding                 : '20px'
+	  }
+	}
+
+	module.exports = Modal
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Based on code that is Copyright 2013-2015, Facebook, Inc.
+	  All rights reserved.
+	*/
+
+	(function () {
+		'use strict';
+
+		var canUseDOM = !!(
+			typeof window !== 'undefined' &&
+			window.document &&
+			window.document.createElement
+		);
+
+		var ExecutionEnvironment = {
+
+			canUseDOM: canUseDOM,
+
+			canUseWorkers: typeof Worker !== 'undefined',
+
+			canUseEventListeners:
+				canUseDOM && !!(window.addEventListener || window.attachEvent),
+
+			canUseViewport: canUseDOM && !!window.screen
+
+		};
+
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return ExecutionEnvironment;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && module.exports) {
+			module.exports = ExecutionEnvironment;
+		} else {
+			window.ExecutionEnvironment = ExecutionEnvironment;
+		}
+
+	}());
+
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var div = React.DOM.div;
+	var focusManager = __webpack_require__(228);
+	var scopeTab = __webpack_require__(230);
+	var Assign = __webpack_require__(231);
+
+	// so that our CSS is statically analyzable
+	var CLASS_NAMES = {
+	  overlay: {
+	    base: 'ReactModal__Overlay',
+	    afterOpen: 'ReactModal__Overlay--after-open',
+	    beforeClose: 'ReactModal__Overlay--before-close'
+	  },
+	  content: {
+	    base: 'ReactModal__Content',
+	    afterOpen: 'ReactModal__Content--after-open',
+	    beforeClose: 'ReactModal__Content--before-close'
+	  }
+	};
+
+	var ModalPortal = module.exports = React.createClass({
+
+	  displayName: 'ModalPortal',
+
+	  getDefaultProps: function() {
+	    return {
+	      style: {
+	        overlay: {},
+	        content: {}
+	      }
+	    };
+	  },
+
+	  getInitialState: function() {
+	    return {
+	      afterOpen: false,
+	      beforeClose: false
+	    };
+	  },
+
+	  componentDidMount: function() {
+	    // Focus needs to be set when mounting and already open
+	    if (this.props.isOpen) {
+	      this.setFocusAfterRender(true);
+	      this.open();
+	    }
+	  },
+
+	  componentWillUnmount: function() {
+	    clearTimeout(this.closeTimer);
+	  },
+
+	  componentWillReceiveProps: function(newProps) {
+	    // Focus only needs to be set once when the modal is being opened
+	    if (!this.props.isOpen && newProps.isOpen) {
+	      this.setFocusAfterRender(true);
+	      this.open();
+	    } else if (this.props.isOpen && !newProps.isOpen) {
+	      this.close();
+	    }
+	  },
+
+	  componentDidUpdate: function () {
+	    if (this.focusAfterRender) {
+	      this.focusContent();
+	      this.setFocusAfterRender(false);
+	    }
+	  },
+
+	  setFocusAfterRender: function (focus) {
+	    this.focusAfterRender = focus;
+	  },
+
+	  open: function() {
+	    focusManager.setupScopedFocus(this.node);
+	    focusManager.markForFocusLater();
+	    this.setState({isOpen: true}, function() {
+	      this.setState({afterOpen: true});
+
+	      if (this.props.isOpen && this.props.onAfterOpen) {
+	        this.props.onAfterOpen();
+	      }
+	    }.bind(this));
+	  },
+
+	  close: function() {
+	    if (!this.ownerHandlesClose())
+	      return;
+	    if (this.props.closeTimeoutMS > 0)
+	      this.closeWithTimeout();
+	    else
+	      this.closeWithoutTimeout();
+	  },
+
+	  focusContent: function() {
+	    this.refs.content.focus();
+	  },
+
+	  closeWithTimeout: function() {
+	    this.setState({beforeClose: true}, function() {
+	      this.closeTimer = setTimeout(this.closeWithoutTimeout, this.props.closeTimeoutMS);
+	    }.bind(this));
+	  },
+
+	  closeWithoutTimeout: function() {
+	    this.setState({
+	      afterOpen: false,
+	      beforeClose: false
+	    }, this.afterClose);
+	  },
+
+	  afterClose: function() {
+	    focusManager.returnFocus();
+	    focusManager.teardownScopedFocus();
+	  },
+
+	  handleKeyDown: function(event) {
+	    if (event.keyCode == 9 /*tab*/) scopeTab(this.refs.content, event);
+	    if (event.keyCode == 27 /*esc*/) {
+	      event.preventDefault();
+	      this.requestClose(event);
+	    }
+	  },
+
+	  handleOverlayClick: function(event) {
+	    var node = event.target
+
+	    while (node) {
+	      if (node === this.refs.content) return
+	      node = node.parentNode
+	    }
+
+	    if (this.props.shouldCloseOnOverlayClick) {
+	      if (this.ownerHandlesClose())
+	        this.requestClose(event);
+	      else
+	        this.focusContent();
+	    }
+	  },
+
+	  requestClose: function(event) {
+	    if (this.ownerHandlesClose())
+	      this.props.onRequestClose(event);
+	  },
+
+	  ownerHandlesClose: function() {
+	    return this.props.onRequestClose;
+	  },
+
+	  shouldBeClosed: function() {
+	    return !this.props.isOpen && !this.state.beforeClose;
+	  },
+
+	  buildClassName: function(which, additional) {
+	    var className = CLASS_NAMES[which].base;
+	    if (this.state.afterOpen)
+	      className += ' '+CLASS_NAMES[which].afterOpen;
+	    if (this.state.beforeClose)
+	      className += ' '+CLASS_NAMES[which].beforeClose;
+	    return additional ? className + ' ' + additional : className;
+	  },
+
+	  render: function() {
+	    var contentStyles = (this.props.className) ? {} : this.props.defaultStyles.content;
+	    var overlayStyles = (this.props.overlayClassName) ? {} : this.props.defaultStyles.overlay;
+
+	    return this.shouldBeClosed() ? div() : (
+	      div({
+	        ref: "overlay",
+	        className: this.buildClassName('overlay', this.props.overlayClassName),
+	        style: Assign({}, overlayStyles, this.props.style.overlay || {}),
+	        onClick: this.handleOverlayClick
+	      },
+	        div({
+	          ref: "content",
+	          style: Assign({}, contentStyles, this.props.style.content || {}),
+	          className: this.buildClassName('content', this.props.className),
+	          tabIndex: "-1",
+	          onKeyDown: this.handleKeyDown
+	        },
+	          this.props.children
+	        )
+	      )
+	    );
+	  }
+	});
+
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var findTabbable = __webpack_require__(229);
+	var modalElement = null;
+	var focusLaterElement = null;
+	var needToFocus = false;
+
+	function handleBlur(event) {
+	  needToFocus = true;
+	}
+
+	function handleFocus(event) {
+	  if (needToFocus) {
+	    needToFocus = false;
+	    if (!modalElement) {
+	      return;
+	    }
+	    // need to see how jQuery shims document.on('focusin') so we don't need the
+	    // setTimeout, firefox doesn't support focusin, if it did, we could focus
+	    // the element outside of a setTimeout. Side-effect of this implementation 
+	    // is that the document.body gets focus, and then we focus our element right 
+	    // after, seems fine.
+	    setTimeout(function() {
+	      if (modalElement.contains(document.activeElement))
+	        return;
+	      var el = (findTabbable(modalElement)[0] || modalElement);
+	      el.focus();
+	    }, 0);
+	  }
+	}
+
+	exports.markForFocusLater = function() {
+	  focusLaterElement = document.activeElement;
+	};
+
+	exports.returnFocus = function() {
+	  try {
+	    focusLaterElement.focus();
+	  }
+	  catch (e) {
+	    console.warn('You tried to return focus to '+focusLaterElement+' but it is not in the DOM anymore');
+	  }
+	  focusLaterElement = null;
+	};
+
+	exports.setupScopedFocus = function(element) {
+	  modalElement = element;
+
+	  if (window.addEventListener) {
+	    window.addEventListener('blur', handleBlur, false);
+	    document.addEventListener('focus', handleFocus, true);
+	  } else {
+	    window.attachEvent('onBlur', handleBlur);
+	    document.attachEvent('onFocus', handleFocus);
+	  }
+	};
+
+	exports.teardownScopedFocus = function() {
+	  modalElement = null;
+
+	  if (window.addEventListener) {
+	    window.removeEventListener('blur', handleBlur);
+	    document.removeEventListener('focus', handleFocus);
+	  } else {
+	    window.detachEvent('onBlur', handleBlur);
+	    document.detachEvent('onFocus', handleFocus);
+	  }
+	};
+
+
+
+
+/***/ },
+/* 229 */
+/***/ function(module, exports) {
+
+	/*!
+	 * Adapted from jQuery UI core
+	 *
+	 * http://jqueryui.com
+	 *
+	 * Copyright 2014 jQuery Foundation and other contributors
+	 * Released under the MIT license.
+	 * http://jquery.org/license
+	 *
+	 * http://api.jqueryui.com/category/ui-core/
+	 */
+
+	function focusable(element, isTabIndexNotNaN) {
+	  var nodeName = element.nodeName.toLowerCase();
+	  return (/input|select|textarea|button|object/.test(nodeName) ?
+	    !element.disabled :
+	    "a" === nodeName ?
+	      element.href || isTabIndexNotNaN :
+	      isTabIndexNotNaN) && visible(element);
+	}
+
+	function hidden(el) {
+	  return (el.offsetWidth <= 0 && el.offsetHeight <= 0) ||
+	    el.style.display === 'none';
+	}
+
+	function visible(element) {
+	  while (element) {
+	    if (element === document.body) break;
+	    if (hidden(element)) return false;
+	    element = element.parentNode;
+	  }
+	  return true;
+	}
+
+	function tabbable(element) {
+	  var tabIndex = element.getAttribute('tabindex');
+	  if (tabIndex === null) tabIndex = undefined;
+	  var isTabIndexNaN = isNaN(tabIndex);
+	  return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
+	}
+
+	function findTabbableDescendants(element) {
+	  return [].slice.call(element.querySelectorAll('*'), 0).filter(function(el) {
+	    return tabbable(el);
+	  });
+	}
+
+	module.exports = findTabbableDescendants;
+
+
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var findTabbable = __webpack_require__(229);
+
+	module.exports = function(node, event) {
+	  var tabbable = findTabbable(node);
+	  if (!tabbable.length) {
+	      event.preventDefault();
+	      return;
+	  }
+	  var finalTabbable = tabbable[event.shiftKey ? 0 : tabbable.length - 1];
+	  var leavingFinalTabbable = (
+	    finalTabbable === document.activeElement ||
+	    // handle immediate shift+tab after opening with mouse
+	    node === document.activeElement
+	  );
+	  if (!leavingFinalTabbable) return;
+	  event.preventDefault();
+	  var target = tabbable[event.shiftKey ? tabbable.length - 1 : 0];
+	  target.focus();
+	};
+
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var baseAssign = __webpack_require__(232),
+	    createAssigner = __webpack_require__(238),
+	    keys = __webpack_require__(234);
+
+	/**
+	 * A specialized version of `_.assign` for customizing assigned values without
+	 * support for argument juggling, multiple sources, and `this` binding `customizer`
+	 * functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {Function} customizer The function to customize assigned values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function assignWith(object, source, customizer) {
+	  var index = -1,
+	      props = keys(source),
+	      length = props.length;
+
+	  while (++index < length) {
+	    var key = props[index],
+	        value = object[key],
+	        result = customizer(value, source[key], key, object, source);
+
+	    if ((result === result ? (result !== value) : (value === value)) ||
+	        (value === undefined && !(key in object))) {
+	      object[key] = result;
+	    }
+	  }
+	  return object;
+	}
+
+	/**
+	 * Assigns own enumerable properties of source object(s) to the destination
+	 * object. Subsequent sources overwrite property assignments of previous sources.
+	 * If `customizer` is provided it is invoked to produce the assigned values.
+	 * The `customizer` is bound to `thisArg` and invoked with five arguments:
+	 * (objectValue, sourceValue, key, object, source).
+	 *
+	 * **Note:** This method mutates `object` and is based on
+	 * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias extend
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @param {*} [thisArg] The `this` binding of `customizer`.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
+	 * // => { 'user': 'fred', 'age': 40 }
+	 *
+	 * // using a customizer callback
+	 * var defaults = _.partialRight(_.assign, function(value, other) {
+	 *   return _.isUndefined(value) ? other : value;
+	 * });
+	 *
+	 * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
+	 * // => { 'user': 'barney', 'age': 36 }
+	 */
+	var assign = createAssigner(function(object, source, customizer) {
+	  return customizer
+	    ? assignWith(object, source, customizer)
+	    : baseAssign(object, source);
+	});
+
+	module.exports = assign;
+
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var baseCopy = __webpack_require__(233),
+	    keys = __webpack_require__(234);
+
+	/**
+	 * The base implementation of `_.assign` without support for argument juggling,
+	 * multiple sources, and `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return source == null
+	    ? object
+	    : baseCopy(source, keys(source), object);
+	}
+
+	module.exports = baseAssign;
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property names to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseCopy(source, props, object) {
+	  object || (object = {});
+
+	  var index = -1,
+	      length = props.length;
+
+	  while (++index < length) {
+	    var key = props[index];
+	    object[key] = source[key];
+	  }
+	  return object;
+	}
+
+	module.exports = baseCopy;
+
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.1.2 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var getNative = __webpack_require__(235),
+	    isArguments = __webpack_require__(236),
+	    isArray = __webpack_require__(237);
+
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^\d+$/;
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = getNative(Object, 'keys');
+
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+
+	/**
+	 * Checks if `value` is array-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value));
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return value > -1 && value % 1 == 0 && value < length;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	/**
+	 * A fallback implementation of `Object.keys` which creates an array of the
+	 * own enumerable property names of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function shimKeys(object) {
+	  var props = keysIn(object),
+	      propsLength = props.length,
+	      length = propsLength && object.length;
+
+	  var allowIndexes = !!length && isLength(length) &&
+	    (isArray(object) || isArguments(object));
+
+	  var index = -1,
+	      result = [];
+
+	  while (++index < propsLength) {
+	    var key = props[index];
+	    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	var keys = !nativeKeys ? shimKeys : function(object) {
+	  var Ctor = object == null ? undefined : object.constructor;
+	  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
+	      (typeof object != 'function' && isArrayLike(object))) {
+	    return shimKeys(object);
+	  }
+	  return isObject(object) ? nativeKeys(object) : [];
+	};
+
+	/**
+	 * Creates an array of the own and inherited enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keysIn(new Foo);
+	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+	 */
+	function keysIn(object) {
+	  if (object == null) {
+	    return [];
+	  }
+	  if (!isObject(object)) {
+	    object = Object(object);
+	  }
+	  var length = object.length;
+	  length = (length && isLength(length) &&
+	    (isArray(object) || isArguments(object)) && length) || 0;
+
+	  var Ctor = object.constructor,
+	      index = -1,
+	      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
+	      result = Array(length),
+	      skipIndexes = length > 0;
+
+	  while (++index < length) {
+	    result[index] = (index + '');
+	  }
+	  for (var key in object) {
+	    if (!(skipIndexes && isIndex(key, length)) &&
+	        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = keys;
+
+
+/***/ },
+/* 235 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.9.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/** `Object#toString` result references. */
+	var funcTag = '[object Function]';
+
+	/** Used to detect host constructors (Safari > 5). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+	/**
+	 * Checks if `value` is object-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var fnToString = Function.prototype.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = object == null ? undefined : object[key];
+	  return isNative(value) ? value : undefined;
+	}
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in older versions of Chrome and Safari which return 'function' for regexes
+	  // and Safari 8 equivalents which return 'object' for typed array constructors.
+	  return isObject(value) && objToString.call(value) == funcTag;
+	}
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	/**
+	 * Checks if `value` is a native function.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+	 * @example
+	 *
+	 * _.isNative(Array.prototype.push);
+	 * // => true
+	 *
+	 * _.isNative(_);
+	 * // => false
+	 */
+	function isNative(value) {
+	  if (value == null) {
+	    return false;
+	  }
+	  if (isFunction(value)) {
+	    return reIsNative.test(fnToString.call(value));
+	  }
+	  return isObjectLike(value) && reIsHostCtor.test(value);
+	}
+
+	module.exports = getNative;
+
+
+/***/ },
+/* 236 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.8 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 incorrectly makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value)) && !isFunction(value);
+	}
+
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8 which returns 'object' for typed array and weak map constructors,
+	  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isArguments;
+
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.4 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/** `Object#toString` result references. */
+	var arrayTag = '[object Array]',
+	    funcTag = '[object Function]';
+
+	/** Used to detect host constructors (Safari > 5). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+	/**
+	 * Checks if `value` is object-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var fnToString = Function.prototype.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeIsArray = getNative(Array, 'isArray');
+
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = object == null ? undefined : object[key];
+	  return isNative(value) ? value : undefined;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(function() { return arguments; }());
+	 * // => false
+	 */
+	var isArray = nativeIsArray || function(value) {
+	  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
+	};
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in older versions of Chrome and Safari which return 'function' for regexes
+	  // and Safari 8 equivalents which return 'object' for typed array constructors.
+	  return isObject(value) && objToString.call(value) == funcTag;
+	}
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	/**
+	 * Checks if `value` is a native function.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+	 * @example
+	 *
+	 * _.isNative(Array.prototype.push);
+	 * // => true
+	 *
+	 * _.isNative(_);
+	 * // => false
+	 */
+	function isNative(value) {
+	  if (value == null) {
+	    return false;
+	  }
+	  if (isFunction(value)) {
+	    return reIsNative.test(fnToString.call(value));
+	  }
+	  return isObjectLike(value) && reIsHostCtor.test(value);
+	}
+
+	module.exports = isArray;
+
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.1.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var bindCallback = __webpack_require__(239),
+	    isIterateeCall = __webpack_require__(240),
+	    restParam = __webpack_require__(241);
+
+	/**
+	 * Creates a function that assigns properties of source object(s) to a given
+	 * destination object.
+	 *
+	 * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return restParam(function(object, sources) {
+	    var index = -1,
+	        length = object == null ? 0 : sources.length,
+	        customizer = length > 2 ? sources[length - 2] : undefined,
+	        guard = length > 2 ? sources[2] : undefined,
+	        thisArg = length > 1 ? sources[length - 1] : undefined;
+
+	    if (typeof customizer == 'function') {
+	      customizer = bindCallback(customizer, thisArg, 5);
+	      length -= 2;
+	    } else {
+	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+	      length -= (customizer ? 1 : 0);
+	    }
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+
+	module.exports = createAssigner;
+
+
+/***/ },
+/* 239 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/**
+	 * A specialized version of `baseCallback` which only supports `this` binding
+	 * and specifying the number of arguments to provide to `func`.
+	 *
+	 * @private
+	 * @param {Function} func The function to bind.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {number} [argCount] The number of arguments to provide to `func`.
+	 * @returns {Function} Returns the callback.
+	 */
+	function bindCallback(func, thisArg, argCount) {
+	  if (typeof func != 'function') {
+	    return identity;
+	  }
+	  if (thisArg === undefined) {
+	    return func;
+	  }
+	  switch (argCount) {
+	    case 1: return function(value) {
+	      return func.call(thisArg, value);
+	    };
+	    case 3: return function(value, index, collection) {
+	      return func.call(thisArg, value, index, collection);
+	    };
+	    case 4: return function(accumulator, value, index, collection) {
+	      return func.call(thisArg, accumulator, value, index, collection);
+	    };
+	    case 5: return function(value, other, key, object, source) {
+	      return func.call(thisArg, value, other, key, object, source);
+	    };
+	  }
+	  return function() {
+	    return func.apply(thisArg, arguments);
+	  };
+	}
+
+	/**
+	 * This method returns the first argument provided to it.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Utility
+	 * @param {*} value Any value.
+	 * @returns {*} Returns `value`.
+	 * @example
+	 *
+	 * var object = { 'user': 'fred' };
+	 *
+	 * _.identity(object) === object;
+	 * // => true
+	 */
+	function identity(value) {
+	  return value;
+	}
+
+	module.exports = bindCallback;
+
+
+/***/ },
+/* 240 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.9 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^\d+$/;
+
+	/**
+	 * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+
+	/**
+	 * Checks if `value` is array-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value));
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return value > -1 && value % 1 == 0 && value < length;
+	}
+
+	/**
+	 * Checks if the provided arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	      ? (isArrayLike(object) && isIndex(index, object.length))
+	      : (type == 'string' && index in object)) {
+	    var other = object[index];
+	    return value === value ? (value === other) : (other !== other);
+	  }
+	  return false;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	module.exports = isIterateeCall;
+
+
+/***/ },
+/* 241 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.6.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+
+	/** Used as the `TypeError` message for "Functions" methods. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * Creates a function that invokes `func` with the `this` binding of the
+	 * created function and arguments from `start` and beyond provided as an array.
+	 *
+	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Function
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 * @example
+	 *
+	 * var say = _.restParam(function(what, names) {
+	 *   return what + ' ' + _.initial(names).join(', ') +
+	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+	 * });
+	 *
+	 * say('hello', 'fred', 'barney', 'pebbles');
+	 * // => 'hello fred, barney, & pebbles'
+	 */
+	function restParam(func, start) {
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        rest = Array(length);
+
+	    while (++index < length) {
+	      rest[index] = args[start + index];
+	    }
+	    switch (start) {
+	      case 0: return func.call(this, rest);
+	      case 1: return func.call(this, args[0], rest);
+	      case 2: return func.call(this, args[0], args[1], rest);
+	    }
+	    var otherArgs = Array(start + 1);
+	    index = -1;
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = rest;
+	    return func.apply(this, otherArgs);
+	  };
+	}
+
+	module.exports = restParam;
+
+
+/***/ },
+/* 242 */
+/***/ function(module, exports) {
+
+	var _element = typeof document !== 'undefined' ? document.body : null;
+
+	function setElement(element) {
+	  if (typeof element === 'string') {
+	    var el = document.querySelectorAll(element);
+	    element = 'length' in el ? el[0] : el;
+	  }
+	  _element = element || _element;
+	  return _element;
+	}
+
+	function hide(appElement) {
+	  validateElement(appElement);
+	  (appElement || _element).setAttribute('aria-hidden', 'true');
+	}
+
+	function show(appElement) {
+	  validateElement(appElement);
+	  (appElement || _element).removeAttribute('aria-hidden');
+	}
+
+	function toggle(shouldHide, appElement) {
+	  if (shouldHide)
+	    hide(appElement);
+	  else
+	    show(appElement);
+	}
+
+	function validateElement(appElement) {
+	  if (!appElement && !_element)
+	    throw new Error('react-modal: You must set an element with `Modal.setAppElement(el)` to make this accessible');
+	}
+
+	function resetForTesting() {
+	  _element = document.body;
+	}
+
+	exports.toggle = toggle;
+	exports.setElement = setElement;
+	exports.show = show;
+	exports.hide = hide;
+	exports.resetForTesting = resetForTesting;
+
+
+/***/ },
+/* 243 */
+/***/ function(module, exports) {
+
+	module.exports = function(opts) {
+	  return new ElementClass(opts)
+	}
+
+	function indexOf(arr, prop) {
+	  if (arr.indexOf) return arr.indexOf(prop)
+	  for (var i = 0, len = arr.length; i < len; i++)
+	    if (arr[i] === prop) return i
+	  return -1
+	}
+
+	function ElementClass(opts) {
+	  if (!(this instanceof ElementClass)) return new ElementClass(opts)
+	  var self = this
+	  if (!opts) opts = {}
+
+	  // similar doing instanceof HTMLElement but works in IE8
+	  if (opts.nodeType) opts = {el: opts}
+
+	  this.opts = opts
+	  this.el = opts.el || document.body
+	  if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
+	}
+
+	ElementClass.prototype.add = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (el.className === "") return el.className = className
+	  var classes = el.className.split(' ')
+	  if (indexOf(classes, className) > -1) return classes
+	  classes.push(className)
+	  el.className = classes.join(' ')
+	  return classes
+	}
+
+	ElementClass.prototype.remove = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (el.className === "") return
+	  var classes = el.className.split(' ')
+	  var idx = indexOf(classes, className)
+	  if (idx > -1) classes.splice(idx, 1)
+	  el.className = classes.join(' ')
+	  return classes
+	}
+
+	ElementClass.prototype.has = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  var classes = el.className.split(' ')
+	  return indexOf(classes, className) > -1
+	}
+
+	ElementClass.prototype.toggle = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (this.has(className)) this.remove(className)
+	  else this.add(className)
+	}
+
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = createAction;
+
+	var _axios = __webpack_require__(203);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _config = __webpack_require__(221);
+
+	var config = _interopRequireWildcard(_config);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function createAction(data) {
+	  var url = config.DEFALT_BASE_URL + '/' + config.DEFALT_ENDPOINT;
+	  _axios2.default.post(url, data).catch(function (response) {
+	    alert("Status code: ".concat(response.status));
+	  });
+	}
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactModal = __webpack_require__(224);
+
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+
+	var _reactRedux = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Read = function (_Component) {
+	  _inherits(Read, _Component);
+
+	  function Read(props) {
+	    _classCallCheck(this, Read);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Read).call(this, props));
+
+	    _this.state = { modalIsOpen: false };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Read, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({ modalIsOpen: true });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleModalCloseRequest',
+	    value: function handleModalCloseRequest() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'loadData',
+	    value: function loadData() {
+	      if (this.props.activeBook.length == 0) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Please select an element '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Visualization'
+	            ),
+	            _react2.default.createElement(
+	              'form',
+	              { className: 'form-horizontal' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'price'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.price
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'signature'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.signature
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'title'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.title
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'author'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.author
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'volume'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.volume
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'year'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.yearPublishing
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'deduction'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.deduction,
+	                    ' '
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'barCode'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    this.props.activeBook.barCode
+	                  )
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            )
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mybtn' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-info btn-primary', onClick: this.openModal },
+	          ' ',
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open' }),
+	          'Read'
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            className: 'Modal__Bootstrap modal-dialog',
+	            closeTimeoutMS: 150,
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.handleModalCloseRequest },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-header' },
+	              _react2.default.createElement(
+	                'h4',
+	                { className: 'modal-title' },
+	                'Modal title'
+	              )
+	            ),
+	            this.loadData()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Read;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+	  var activeBook = _ref.activeBook;
+
+	  return { activeBook: activeBook };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Read);
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactModal = __webpack_require__(224);
+
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+
+	var _reactRedux = __webpack_require__(173);
+
+	var _update = __webpack_require__(247);
+
+	var _update2 = _interopRequireDefault(_update);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Update = function (_Component) {
+	  _inherits(Update, _Component);
+
+	  function Update(props) {
+	    _classCallCheck(this, Update);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Update).call(this, props));
+
+	    _this.state = { modalIsOpen: false };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
+	    _this.handleUpdateClicked = _this.handleUpdateClicked.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Update, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({ modalIsOpen: true });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleModalCloseRequest',
+	    value: function handleModalCloseRequest() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'loadData',
+	    value: function loadData() {
+	      if (this.props.activeBook.length == 0) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Please select an element '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Update ...'
+	            ),
+	            _react2.default.createElement(
+	              'form',
+	              { className: 'form-horizontal' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'price'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'price', defaultValue: this.props.activeBook.price, ref: 'price' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'signature'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'signature', defaultValue: this.props.activeBook.signature, ref: 'signature' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'title'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'title', defaultValue: this.props.activeBook.title, ref: 'title' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'author'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'author', defaultValue: this.props.activeBook.author, ref: 'author' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'volume'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'volume', defaultValue: this.props.activeBook.volume, ref: 'volume' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'year'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'yearPublishing', defaultValue: this.props.activeBook.yearPublishing, ref: 'yearPublishing' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'deduction'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'deduction', defaultValue: this.props.activeBook.deduction, ref: 'deduction' })
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
+	                  'barCode'
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-10' },
+	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'barCode', defaultValue: this.props.activeBook.barCode, ref: 'barCode' })
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-primary', onClick: this.handleUpdateClicked },
+	              'Update'
+	            )
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'handleUpdateClicked',
+	    value: function handleUpdateClicked(e) {
+	      var _this2 = this;
+
+	      e.preventDefault();
+	      var updateBook = {};
+	      var atributes = ["title", "author", "volume", "yearPublishing", "price", "signature", "deduction", "barCode"];
+	      atributes.map(function (element) {
+	        updateBook[element] = _reactDom2.default.findDOMNode(_this2.refs[element]).value.trim();
+	      });
+	      updateBook['price'] = parseFloat(updateBook['price']);
+	      (0, _update2.default)(this.props.activeBook, updateBook);
+	      //console.log(this.props.activeBook);
+	      //this.props.onUpdate(this.props.selectedElement, updateBook);
+	      this.handleModalCloseRequest();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mybtn' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-warning', onClick: this.openModal },
+	          ' ',
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-pencil' }),
+	          ' Update'
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            className: 'Modal__Bootstrap modal-dialog',
+	            closeTimeoutMS: 150,
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.handleModalCloseRequest },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-header' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'close', onClick: this.handleUpdateClicked },
+	                _react2.default.createElement(
+	                  'span',
+	                  { 'aria-hidden': 'true' },
+	                  '×'
+	                ),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sr-only' },
+	                  'Close'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'h4',
+	                { className: 'modal-title' },
+	                'Modal title'
+	              )
+	            ),
+	            this.loadData()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Update;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+	  var activeBook = _ref.activeBook;
+
+	  return { activeBook: activeBook };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Update);
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = updateAction;
+
+	var _axios = __webpack_require__(203);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _config = __webpack_require__(221);
+
+	var config = _interopRequireWildcard(_config);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function updateAction(olddata, newdata) {
+
+	  var url = olddata._links.self.href;
+	  var data = new Object();
+	  Object.keys(newdata).forEach(function (key) {
+	    if (newdata[key] != olddata[key]) {
+	      data[key] = newdata[key];
+	    }
+	  });
+
+	  _axios2.default.patch(url, data).catch(function (response) {
+	    alert("Status code: ".concat(response.status));
+	  });
+	}
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactModal = __webpack_require__(224);
+
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+
+	var _reactRedux = __webpack_require__(173);
+
+	var _delete = __webpack_require__(249);
+
+	var _delete2 = _interopRequireDefault(_delete);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Delete = function (_Component) {
+	  _inherits(Delete, _Component);
+
+	  function Delete(props) {
+	    _classCallCheck(this, Delete);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Delete).call(this, props));
+
+	    _this.state = { modalIsOpen: false };
+	    _this.openModal = _this.openModal.bind(_this);
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
+	    _this.handleDeleteClicked = _this.handleDeleteClicked.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Delete, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({ modalIsOpen: true });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleModalCloseRequest',
+	    value: function handleModalCloseRequest() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'handleDeleteClicked',
+	    value: function handleDeleteClicked(e) {
+	      e.preventDefault();
+	      (0, _delete2.default)(this.props.activeBook._links.self.href);
+	      this.handleModalCloseRequest();
+	    }
+	  }, {
+	    key: 'deleteBody',
+	    value: function deleteBody() {
+	      if (this.props.activeBook.length == 0) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Please select an element '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Are you sure want to delete book with title: ',
+	              this.props.activeBook.title,
+	              ' '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-footer' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
+	              'Close'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-primary', onClick: this.handleDeleteClicked },
+	              'Delete'
+	            )
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mybtn' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-danger', onClick: this.openModal },
+	          ' ',
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash' }),
+	          ' Delete '
+	        ),
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            className: 'Modal__Bootstrap modal-dialog',
+	            closeTimeoutMS: 150,
+	            isOpen: this.state.modalIsOpen,
+	            onRequestClose: this.handleModalCloseRequest },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'modal-header' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'close', onClick: this.handleModalCloseRequest },
+	                _react2.default.createElement(
+	                  'span',
+	                  { 'aria-hidden': 'true' },
+	                  '×'
+	                ),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sr-only' },
+	                  'Close'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'h4',
+	                { className: 'modal-title' },
+	                'Delete Element'
+	              )
+	            ),
+	            this.deleteBody()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Delete;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+	  var activeBook = _ref.activeBook;
+
+	  return { activeBook: activeBook };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Delete);
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = deleteAction;
+
+	var _axios = __webpack_require__(203);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function deleteAction(url) {
+	  _axios2.default.delete(url).catch(function (response) {
+	    alert("Status code: ".concat(response.status));
+	  });
+	}
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(173);
+
+	var _index = __webpack_require__(202);
+
+	var _redux = __webpack_require__(180);
+
+	var _set_page_size = __webpack_require__(251);
+
+	var _config = __webpack_require__(221);
+
+	var config = _interopRequireWildcard(_config);
+
+	var _websocketListener = __webpack_require__(252);
+
+	var _websocketListener2 = _interopRequireDefault(_websocketListener);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var firstG, lastG, nextG, prevG;
+
+	var Pager = function (_Component) {
+	  _inherits(Pager, _Component);
+
+	  function Pager(props) {
+	    _classCallCheck(this, Pager);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Pager).call(this, props));
+
+	    _this.state = { pageSize: config.DEFALT_PAGE_SIZE,
+	      pageNumber: config.DEFALT_PAGE_NUMBER };
+	    _this.onChangePageSize = _this.onChangePageSize.bind(_this);
+	    _this.nextPage = _this.nextPage.bind(_this);
+	    _this.prevPage = _this.prevPage.bind(_this);
+	    _this.firstPage = _this.firstPage.bind(_this);
+	    _this.lastPage = _this.lastPage.bind(_this);
+	    _this.refreshCurrentPage = _this.refreshCurrentPage.bind(_this);
+	    _this.addElement = _this.addElement.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Pager, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _websocketListener2.default.register([{ route: '/topic/newBook', callback: this.addElement }, { route: '/topic/updateBook', callback: this.refreshCurrentPage }, { route: '/topic/deleteBook', callback: this.refreshCurrentPage }]);
+	    }
+	  }, {
+	    key: 'addElement',
+	    value: function addElement() {
+	      if (this.props.sortBy == 'id,asc') {
+	        this.props.fetchWeather(this.state.pageSize, this.state.pageNumber, this.props.sortBy);
+	        if (lastG) {
+	          this.lastPage();
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'refreshCurrentPage',
+	    value: function refreshCurrentPage(msg) {
+	      var currentState = this.props.weather[0]._embedded.book.map(function (book) {
+	        return book._links.self.href.match(/book\/([0-9]+)/)[1];
+	      });
+	      var remoreChange = JSON.parse(msg.body);
+
+	      if (currentState.indexOf(remoreChange.ID.toString()) != -1) {
+	        this.props.fetchWeather(this.state.pageSize, this.state.pageNumber, this.props.sortBy);
+	      }
+	    }
+	  }, {
+	    key: 'onChangePageSize',
+	    value: function onChangePageSize(event) {
+	      this.props.setPageSize(event.target.value);
+	      this.setState({ pageSize: event.target.value });
+	      var newPage = Math.floor(this.state.pageSize * parseInt(this.state.pageNumber) / event.target.value);
+	      this.setState({ pageNumber: newPage });
+	      this.props.fetchWeather(event.target.value, newPage, this.props.sortBy);
+	    }
+	  }, {
+	    key: 'nextPage',
+	    value: function nextPage() {
+	      this.props.fetchWeather(this.state.pageSize, nextG, this.props.sortBy);
+	      this.setState({ pageNumber: nextG });
+	    }
+	  }, {
+	    key: 'prevPage',
+	    value: function prevPage() {
+	      this.props.fetchWeather(this.state.pageSize, prevG, this.props.sortBy);
+	      this.setState({ pageNumber: prevG });
+	    }
+	  }, {
+	    key: 'firstPage',
+	    value: function firstPage() {
+	      this.props.fetchWeather(this.state.pageSize, firstG, this.props.sortBy);
+	      this.setState({ pageNumber: firstG });
+	    }
+	  }, {
+	    key: 'lastPage',
+	    value: function lastPage() {
+	      this.props.fetchWeather(this.state.pageSize, lastG, this.props.sortBy);
+	      this.setState({ pageNumber: lastG });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var navLinks = [];
+	      var infoLine = [];
+	      if (this.props.weather[0]) {
+	        if (this.props.weather[0].page.totalElements) {
+	          var totalElements = this.props.weather[0].page.totalElements;
+	        }
+
+	        if (this.props.weather[0].page.number) {
+	          var number = this.props.weather[0].page.number;
+	          number = number + 1;
+	        } else {
+	          var number = config.DEFALT_PAGE_NUMBER + 1;
+	        }
+
+	        if (this.props.weather[0].page.totalPages) {
+	          var totalPages = this.props.weather[0].page.totalPages;
+	          infoLine.push(_react2.default.createElement(
+	            'div',
+	            { key: 'infoLine' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-1 col-xs-1 col-md-1' },
+	              _react2.default.createElement(
+	                'select',
+	                { id: 'lang', className: 'form-control', onChange: this.onChangePageSize, value: this.state.pageSize },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: config.DEFALT_PAGE_SIZE },
+	                  config.DEFALT_PAGE_SIZE
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '3' },
+	                  '3'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '5' },
+	                  '5'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '10' },
+	                  '10'
+	                )
+	              ),
+	              ' книги на стр.'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              'от общо ',
+	              totalElements
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              ' Стр: ',
+	              number,
+	              ' от  ',
+	              totalPages,
+	              ' '
+	            )
+	          ));
+	        }
+
+	        if (this.props.weather[0]._links.first) {
+	          firstG = this.props.weather[0]._links.first.href.match(/page=([0-9]+)/)[1];
+	          navLinks.push(_react2.default.createElement(
+	            'li',
+	            { key: 'first', onClick: this.firstPage },
+	            ' ',
+	            _react2.default.createElement(
+	              'a',
+	              { 'aria-label': 'Previous' },
+	              _react2.default.createElement(
+	                'span',
+	                { 'aria-hidden': 'true' },
+	                '«'
+	              )
+	            )
+	          ));
+	        }
+
+	        if (this.props.weather[0]._links.prev) {
+	          prevG = this.props.weather[0]._links.prev.href.match(/page=([0-9]+)/)[1];
+	          navLinks.push(_react2.default.createElement(
+	            'li',
+	            { key: 'prev', onClick: this.prevPage },
+	            _react2.default.createElement(
+	              'a',
+	              null,
+	              'Previous'
+	            )
+	          ));
+	        }
+
+	        if (this.props.weather[0]._links.next) {
+	          nextG = this.props.weather[0]._links.next.href.match(/page=([0-9]+)/)[1];
+	          navLinks.push(_react2.default.createElement(
+	            'li',
+	            { key: 'next', onClick: this.nextPage },
+	            _react2.default.createElement(
+	              'a',
+	              null,
+	              'Next'
+	            )
+	          ));
+	        }
+
+	        if (this.props.weather[0]._links.last) {
+	          lastG = this.props.weather[0]._links.last.href.match(/page=([0-9]+)/)[1];
+	          navLinks.push(_react2.default.createElement(
+	            'li',
+	            { key: 'last', onClick: this.lastPage },
+	            ' ',
+	            _react2.default.createElement(
+	              'a',
+	              { 'aria-label': 'Next' },
+	              _react2.default.createElement(
+	                'span',
+	                { 'aria-hidden': 'true' },
+	                '»'
+	              )
+	            )
+	          ));
+	        }
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        infoLine,
+	        _react2.default.createElement(
+	          'nav',
+	          null,
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'pagination' },
+	            navLinks
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Pager;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    weather: state.weather,
+	    sortBy: state.sortBy
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    setPageSize: (0, _redux.bindActionCreators)(_set_page_size.setPageSize, dispatch),
+	    fetchWeather: (0, _redux.bindActionCreators)(_index.fetchWeather, dispatch)
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Pager);
+
+/***/ },
+/* 251 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.setPageSize = setPageSize;
+	function setPageSize(size) {
+	  return {
+	    type: 'SET_PAGE_SIZE',
+	    payload: size
+	  };
+	}
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var SockJS = __webpack_require__(253);
+	__webpack_require__(317);
 
 	function register(registrations) {
-		console.log("in registrations");
 		var socket = SockJS('/books');
 		var stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
-			console.log("in stompClient.connect");
 			registrations.forEach(function (registration) {
 				stompClient.subscribe(registration.route, registration.callback);
 			});
@@ -23729,14 +27087,14 @@
 	};
 
 /***/ },
-/* 224 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var transportList = __webpack_require__(225);
+	var transportList = __webpack_require__(254);
 
-	module.exports = __webpack_require__(272)(transportList);
+	module.exports = __webpack_require__(301)(transportList);
 
 	// TODO can't get rid of this until all servers do
 	if ('_sockjs_onload' in global) {
@@ -23746,45 +27104,45 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 225 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = [
 	  // streaming transports
-	  __webpack_require__(226)
-	, __webpack_require__(242)
-	, __webpack_require__(252)
-	, __webpack_require__(254)
-	, __webpack_require__(257)(__webpack_require__(254))
+	  __webpack_require__(255)
+	, __webpack_require__(271)
+	, __webpack_require__(281)
+	, __webpack_require__(283)
+	, __webpack_require__(286)(__webpack_require__(283))
 
 	  // polling transports
-	, __webpack_require__(265)
-	, __webpack_require__(257)(__webpack_require__(265))
-	, __webpack_require__(267)
-	, __webpack_require__(268)
-	, __webpack_require__(257)(__webpack_require__(267))
-	, __webpack_require__(269)
+	, __webpack_require__(294)
+	, __webpack_require__(286)(__webpack_require__(294))
+	, __webpack_require__(296)
+	, __webpack_require__(297)
+	, __webpack_require__(286)(__webpack_require__(296))
+	, __webpack_require__(298)
 	];
 
 
 /***/ },
-/* 226 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(227)
-	  , urlUtils = __webpack_require__(230)
-	  , inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
-	  , WebsocketDriver = __webpack_require__(241)
+	var utils = __webpack_require__(256)
+	  , urlUtils = __webpack_require__(259)
+	  , inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
+	  , WebsocketDriver = __webpack_require__(270)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:websocket');
+	  debug = __webpack_require__(264)('sockjs-client:websocket');
 	}
 
 	function WebSocketTransport(transUrl, ignore, options) {
@@ -23875,12 +27233,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 227 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var random = __webpack_require__(228);
+	var random = __webpack_require__(257);
 
 	var onUnload = {}
 	  , afterUnload = false
@@ -23955,13 +27313,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 228 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/* global crypto:true */
-	var crypto = __webpack_require__(229);
+	var crypto = __webpack_require__(258);
 
 	// This string has length 32, a power of 2, so the modulus doesn't introduce a
 	// bias.
@@ -23990,7 +27348,7 @@
 
 
 /***/ },
-/* 229 */
+/* 258 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -24014,16 +27372,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 230 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var URL = __webpack_require__(231);
+	var URL = __webpack_require__(260);
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:utils:url');
+	  debug = __webpack_require__(264)('sockjs-client:utils:url');
 	}
 
 	module.exports = {
@@ -24068,14 +27426,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 231 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var required = __webpack_require__(232)
-	  , lolcation = __webpack_require__(233)
-	  , qs = __webpack_require__(234)
+	var required = __webpack_require__(261)
+	  , lolcation = __webpack_require__(262)
+	  , qs = __webpack_require__(263)
 	  , relativere = /^\/(?!\/)/
 	  , protocolre = /^([a-z0-9.+-]+:)?(\/\/)?(.*)$/i; // actual protocol is first match
 
@@ -24343,7 +27701,7 @@
 
 
 /***/ },
-/* 232 */
+/* 261 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24387,7 +27745,7 @@
 
 
 /***/ },
-/* 233 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -24419,7 +27777,7 @@
 	 */
 	module.exports = function lolcation(loc) {
 	  loc = loc || global.location || {};
-	  URL = URL || __webpack_require__(231);
+	  URL = URL || __webpack_require__(260);
 
 	  var finaldestination = {}
 	    , type = typeof loc
@@ -24447,7 +27805,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 234 */
+/* 263 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24514,7 +27872,7 @@
 
 
 /***/ },
-/* 235 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -24524,7 +27882,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(236);
+	exports = module.exports = __webpack_require__(265);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -24688,7 +28046,7 @@
 
 
 /***/ },
-/* 236 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -24704,7 +28062,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(237);
+	exports.humanize = __webpack_require__(266);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -24891,7 +28249,7 @@
 
 
 /***/ },
-/* 237 */
+/* 266 */
 /***/ function(module, exports) {
 
 	/**
@@ -25022,7 +28380,7 @@
 
 
 /***/ },
-/* 238 */
+/* 267 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -25051,13 +28409,13 @@
 
 
 /***/ },
-/* 239 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventTarget = __webpack_require__(240)
+	var inherits = __webpack_require__(267)
+	  , EventTarget = __webpack_require__(269)
 	  ;
 
 	function EventEmitter() {
@@ -25114,7 +28472,7 @@
 
 
 /***/ },
-/* 240 */
+/* 269 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25182,7 +28540,7 @@
 
 
 /***/ },
-/* 241 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global.WebSocket || global.MozWebSocket;
@@ -25190,17 +28548,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 242 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , AjaxBasedTransport = __webpack_require__(243)
-	  , XhrReceiver = __webpack_require__(247)
-	  , XHRCorsObject = __webpack_require__(248)
-	  , XHRLocalObject = __webpack_require__(250)
-	  , browser = __webpack_require__(251)
+	var inherits = __webpack_require__(267)
+	  , AjaxBasedTransport = __webpack_require__(272)
+	  , XhrReceiver = __webpack_require__(276)
+	  , XHRCorsObject = __webpack_require__(277)
+	  , XHRLocalObject = __webpack_require__(279)
+	  , browser = __webpack_require__(280)
 	  ;
 
 	function XhrStreamingTransport(transUrl) {
@@ -25238,19 +28596,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 243 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , urlUtils = __webpack_require__(230)
-	  , SenderReceiver = __webpack_require__(244)
+	var inherits = __webpack_require__(267)
+	  , urlUtils = __webpack_require__(259)
+	  , SenderReceiver = __webpack_require__(273)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:ajax-based');
+	  debug = __webpack_require__(264)('sockjs-client:ajax-based');
 	}
 
 	function createAjaxSender(AjaxObject) {
@@ -25294,20 +28652,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 244 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , urlUtils = __webpack_require__(230)
-	  , BufferedSender = __webpack_require__(245)
-	  , Polling = __webpack_require__(246)
+	var inherits = __webpack_require__(267)
+	  , urlUtils = __webpack_require__(259)
+	  , BufferedSender = __webpack_require__(274)
+	  , Polling = __webpack_require__(275)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:sender-receiver');
+	  debug = __webpack_require__(264)('sockjs-client:sender-receiver');
 	}
 
 	function SenderReceiver(transUrl, urlSuffix, senderFunc, Receiver, AjaxObject) {
@@ -25346,18 +28704,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 245 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
+	var inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:buffered-sender');
+	  debug = __webpack_require__(264)('sockjs-client:buffered-sender');
 	}
 
 	function BufferedSender(url, sender) {
@@ -25440,18 +28798,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 246 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
+	var inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:polling');
+	  debug = __webpack_require__(264)('sockjs-client:polling');
 	}
 
 	function Polling(Receiver, receiveUrl, AjaxObject) {
@@ -25504,18 +28862,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 247 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
+	var inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:receiver:xhr');
+	  debug = __webpack_require__(264)('sockjs-client:receiver:xhr');
 	}
 
 	function XhrReceiver(url, AjaxObject) {
@@ -25581,13 +28939,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 248 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , XhrDriver = __webpack_require__(249)
+	var inherits = __webpack_require__(267)
+	  , XhrDriver = __webpack_require__(278)
 	  ;
 
 	function XHRCorsObject(method, url, payload, opts) {
@@ -25602,21 +28960,21 @@
 
 
 /***/ },
-/* 249 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
-	  , utils = __webpack_require__(227)
-	  , urlUtils = __webpack_require__(230)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
+	  , utils = __webpack_require__(256)
+	  , urlUtils = __webpack_require__(259)
 	  , XHR = global.XMLHttpRequest
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:browser:xhr');
+	  debug = __webpack_require__(264)('sockjs-client:browser:xhr');
 	}
 
 	function AbstractXHRObject(method, url, payload, opts) {
@@ -25802,13 +29160,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
 
 /***/ },
-/* 250 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , XhrDriver = __webpack_require__(249)
+	var inherits = __webpack_require__(267)
+	  , XhrDriver = __webpack_require__(278)
 	  ;
 
 	function XHRLocalObject(method, url, payload /*, opts */) {
@@ -25825,7 +29183,7 @@
 
 
 /***/ },
-/* 251 */
+/* 280 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -25859,15 +29217,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 252 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , AjaxBasedTransport = __webpack_require__(243)
-	  , XhrReceiver = __webpack_require__(247)
-	  , XDRObject = __webpack_require__(253)
+	var inherits = __webpack_require__(267)
+	  , AjaxBasedTransport = __webpack_require__(272)
+	  , XhrReceiver = __webpack_require__(276)
+	  , XDRObject = __webpack_require__(282)
 	  ;
 
 	// According to:
@@ -25897,21 +29255,21 @@
 
 
 /***/ },
-/* 253 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
-	  , eventUtils = __webpack_require__(227)
-	  , browser = __webpack_require__(251)
-	  , urlUtils = __webpack_require__(230)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
+	  , eventUtils = __webpack_require__(256)
+	  , browser = __webpack_require__(280)
+	  , urlUtils = __webpack_require__(259)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:sender:xdr');
+	  debug = __webpack_require__(264)('sockjs-client:sender:xdr');
 	}
 
 	// References:
@@ -26007,16 +29365,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 254 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , AjaxBasedTransport = __webpack_require__(243)
-	  , EventSourceReceiver = __webpack_require__(255)
-	  , XHRCorsObject = __webpack_require__(248)
-	  , EventSourceDriver = __webpack_require__(256)
+	var inherits = __webpack_require__(267)
+	  , AjaxBasedTransport = __webpack_require__(272)
+	  , EventSourceReceiver = __webpack_require__(284)
+	  , XHRCorsObject = __webpack_require__(277)
+	  , EventSourceDriver = __webpack_require__(285)
 	  ;
 
 	function EventSourceTransport(transUrl) {
@@ -26040,19 +29398,19 @@
 
 
 /***/ },
-/* 255 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
-	  , EventSourceDriver = __webpack_require__(256)
+	var inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
+	  , EventSourceDriver = __webpack_require__(285)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:receiver:eventsource');
+	  debug = __webpack_require__(264)('sockjs-client:receiver:eventsource');
 	}
 
 	function EventSourceReceiver(url) {
@@ -26110,7 +29468,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 256 */
+/* 285 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global.EventSource;
@@ -26118,14 +29476,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 257 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , IframeTransport = __webpack_require__(258)
-	  , objectUtils = __webpack_require__(264)
+	var inherits = __webpack_require__(267)
+	  , IframeTransport = __webpack_require__(287)
+	  , objectUtils = __webpack_require__(293)
 	  ;
 
 	module.exports = function(transport) {
@@ -26158,7 +29516,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 258 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26171,19 +29529,19 @@
 	//    http://msdn.microsoft.com/en-us/library/cc197015(v=VS.85).aspx
 	//    http://stevesouders.com/misc/test-postmessage.php
 
-	var inherits = __webpack_require__(238)
-	  , JSON3 = __webpack_require__(259)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
-	  , version = __webpack_require__(262)
-	  , urlUtils = __webpack_require__(230)
-	  , iframeUtils = __webpack_require__(263)
-	  , eventUtils = __webpack_require__(227)
-	  , random = __webpack_require__(228)
+	var inherits = __webpack_require__(267)
+	  , JSON3 = __webpack_require__(288)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
+	  , version = __webpack_require__(291)
+	  , urlUtils = __webpack_require__(259)
+	  , iframeUtils = __webpack_require__(292)
+	  , eventUtils = __webpack_require__(256)
+	  , random = __webpack_require__(257)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:transport:iframe');
+	  debug = __webpack_require__(264)('sockjs-client:transport:iframe');
 	}
 
 	function IframeTransport(transport, transUrl, baseUrl) {
@@ -26306,14 +29664,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 259 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 	;(function () {
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(261);
+	  var isLoader = "function" === "function" && __webpack_require__(290);
 
 	  // A set of types used to distinguish objects from primitives.
 	  var objectTypes = {
@@ -27212,10 +30570,10 @@
 	  }
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(260)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(289)(module), (function() { return this; }())))
 
 /***/ },
-/* 260 */
+/* 289 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -27231,7 +30589,7 @@
 
 
 /***/ },
-/* 261 */
+/* 290 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -27239,26 +30597,26 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 262 */
+/* 291 */
 /***/ function(module, exports) {
 
 	module.exports = '1.1.0';
 
 
 /***/ },
-/* 263 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var eventUtils = __webpack_require__(227)
-	  , JSON3 = __webpack_require__(259)
-	  , browser = __webpack_require__(251)
+	var eventUtils = __webpack_require__(256)
+	  , JSON3 = __webpack_require__(288)
+	  , browser = __webpack_require__(280)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:utils:iframe');
+	  debug = __webpack_require__(264)('sockjs-client:utils:iframe');
 	}
 
 	module.exports = {
@@ -27440,7 +30798,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 264 */
+/* 293 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27470,15 +30828,15 @@
 
 
 /***/ },
-/* 265 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , HtmlfileReceiver = __webpack_require__(266)
-	  , XHRLocalObject = __webpack_require__(250)
-	  , AjaxBasedTransport = __webpack_require__(243)
+	var inherits = __webpack_require__(267)
+	  , HtmlfileReceiver = __webpack_require__(295)
+	  , XHRLocalObject = __webpack_require__(279)
+	  , AjaxBasedTransport = __webpack_require__(272)
 	  ;
 
 	function HtmlFileTransport(transUrl) {
@@ -27501,21 +30859,21 @@
 
 
 /***/ },
-/* 266 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , iframeUtils = __webpack_require__(263)
-	  , urlUtils = __webpack_require__(230)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
-	  , random = __webpack_require__(228)
+	var inherits = __webpack_require__(267)
+	  , iframeUtils = __webpack_require__(292)
+	  , urlUtils = __webpack_require__(259)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
+	  , random = __webpack_require__(257)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:receiver:htmlfile');
+	  debug = __webpack_require__(264)('sockjs-client:receiver:htmlfile');
 	}
 
 	function HtmlfileReceiver(url) {
@@ -27595,16 +30953,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 267 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , AjaxBasedTransport = __webpack_require__(243)
-	  , XhrReceiver = __webpack_require__(247)
-	  , XHRCorsObject = __webpack_require__(248)
-	  , XHRLocalObject = __webpack_require__(250)
+	var inherits = __webpack_require__(267)
+	  , AjaxBasedTransport = __webpack_require__(272)
+	  , XhrReceiver = __webpack_require__(276)
+	  , XHRCorsObject = __webpack_require__(277)
+	  , XHRLocalObject = __webpack_require__(279)
 	  ;
 
 	function XhrPollingTransport(transUrl) {
@@ -27634,16 +30992,16 @@
 
 
 /***/ },
-/* 268 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , AjaxBasedTransport = __webpack_require__(243)
-	  , XdrStreamingTransport = __webpack_require__(252)
-	  , XhrReceiver = __webpack_require__(247)
-	  , XDRObject = __webpack_require__(253)
+	var inherits = __webpack_require__(267)
+	  , AjaxBasedTransport = __webpack_require__(272)
+	  , XdrStreamingTransport = __webpack_require__(281)
+	  , XhrReceiver = __webpack_require__(276)
+	  , XDRObject = __webpack_require__(282)
 	  ;
 
 	function XdrPollingTransport(transUrl) {
@@ -27663,7 +31021,7 @@
 
 
 /***/ },
-/* 269 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -27676,10 +31034,10 @@
 	//   o you will get a spinning cursor
 	//   o for Konqueror a dumb timer is needed to detect errors
 
-	var inherits = __webpack_require__(238)
-	  , SenderReceiver = __webpack_require__(244)
-	  , JsonpReceiver = __webpack_require__(270)
-	  , jsonpSender = __webpack_require__(271)
+	var inherits = __webpack_require__(267)
+	  , SenderReceiver = __webpack_require__(273)
+	  , JsonpReceiver = __webpack_require__(299)
+	  , jsonpSender = __webpack_require__(300)
 	  ;
 
 	function JsonPTransport(transUrl) {
@@ -27704,22 +31062,22 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 270 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var utils = __webpack_require__(263)
-	  , random = __webpack_require__(228)
-	  , browser = __webpack_require__(251)
-	  , urlUtils = __webpack_require__(230)
-	  , inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
+	var utils = __webpack_require__(292)
+	  , random = __webpack_require__(257)
+	  , browser = __webpack_require__(280)
+	  , urlUtils = __webpack_require__(259)
+	  , inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:receiver:jsonp');
+	  debug = __webpack_require__(264)('sockjs-client:receiver:jsonp');
 	}
 
 	function JsonpReceiver(url) {
@@ -27894,18 +31252,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 271 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var random = __webpack_require__(228)
-	  , urlUtils = __webpack_require__(230)
+	var random = __webpack_require__(257)
+	  , urlUtils = __webpack_require__(259)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:sender:jsonp');
+	  debug = __webpack_require__(264)('sockjs-client:sender:jsonp');
 	}
 
 	var form, area;
@@ -28000,35 +31358,35 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 272 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	__webpack_require__(273);
+	__webpack_require__(302);
 
-	var URL = __webpack_require__(231)
-	  , inherits = __webpack_require__(238)
-	  , JSON3 = __webpack_require__(259)
-	  , random = __webpack_require__(228)
-	  , escape = __webpack_require__(274)
-	  , urlUtils = __webpack_require__(230)
-	  , eventUtils = __webpack_require__(227)
-	  , transport = __webpack_require__(275)
-	  , objectUtils = __webpack_require__(264)
-	  , browser = __webpack_require__(251)
-	  , log = __webpack_require__(276)
-	  , Event = __webpack_require__(277)
-	  , EventTarget = __webpack_require__(240)
-	  , loc = __webpack_require__(278)
-	  , CloseEvent = __webpack_require__(279)
-	  , TransportMessageEvent = __webpack_require__(280)
-	  , InfoReceiver = __webpack_require__(281)
+	var URL = __webpack_require__(260)
+	  , inherits = __webpack_require__(267)
+	  , JSON3 = __webpack_require__(288)
+	  , random = __webpack_require__(257)
+	  , escape = __webpack_require__(303)
+	  , urlUtils = __webpack_require__(259)
+	  , eventUtils = __webpack_require__(256)
+	  , transport = __webpack_require__(304)
+	  , objectUtils = __webpack_require__(293)
+	  , browser = __webpack_require__(280)
+	  , log = __webpack_require__(305)
+	  , Event = __webpack_require__(306)
+	  , EventTarget = __webpack_require__(269)
+	  , loc = __webpack_require__(307)
+	  , CloseEvent = __webpack_require__(308)
+	  , TransportMessageEvent = __webpack_require__(309)
+	  , InfoReceiver = __webpack_require__(310)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:main');
+	  debug = __webpack_require__(264)('sockjs-client:main');
 	}
 
 	var transports;
@@ -28168,7 +31526,7 @@
 	  this._transport.send(escape.quote(data));
 	};
 
-	SockJS.version = __webpack_require__(262);
+	SockJS.version = __webpack_require__(291);
 
 	SockJS.CONNECTING = 0;
 	SockJS.OPEN = 1;
@@ -28381,14 +31739,14 @@
 
 	module.exports = function(availableTransports) {
 	  transports = transport(availableTransports);
-	  __webpack_require__(286)(SockJS, availableTransports);
+	  __webpack_require__(315)(SockJS, availableTransports);
 	  return SockJS;
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 273 */
+/* 302 */
 /***/ function(module, exports) {
 
 	/* eslint-disable */
@@ -28867,12 +32225,12 @@
 
 
 /***/ },
-/* 274 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(259);
+	var JSON3 = __webpack_require__(288);
 
 	// Some extra characters that Chrome gets wrong, and substitutes with
 	// something else on the wire.
@@ -28922,14 +32280,14 @@
 
 
 /***/ },
-/* 275 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:utils:transport');
+	  debug = __webpack_require__(264)('sockjs-client:utils:transport');
 	}
 
 	module.exports = function(availableTransports) {
@@ -28979,7 +32337,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 276 */
+/* 305 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -29004,7 +32362,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 277 */
+/* 306 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29032,7 +32390,7 @@
 
 
 /***/ },
-/* 278 */
+/* 307 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
@@ -29049,13 +32407,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 279 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , Event = __webpack_require__(277)
+	var inherits = __webpack_require__(267)
+	  , Event = __webpack_require__(306)
 	  ;
 
 	function CloseEvent() {
@@ -29072,13 +32430,13 @@
 
 
 /***/ },
-/* 280 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , Event = __webpack_require__(277)
+	var inherits = __webpack_require__(267)
+	  , Event = __webpack_require__(306)
 	  ;
 
 	function TransportMessageEvent(data) {
@@ -29093,25 +32451,25 @@
 
 
 /***/ },
-/* 281 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
-	  , urlUtils = __webpack_require__(230)
-	  , XDR = __webpack_require__(253)
-	  , XHRCors = __webpack_require__(248)
-	  , XHRLocal = __webpack_require__(250)
-	  , XHRFake = __webpack_require__(282)
-	  , InfoIframe = __webpack_require__(283)
-	  , InfoAjax = __webpack_require__(285)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
+	  , urlUtils = __webpack_require__(259)
+	  , XDR = __webpack_require__(282)
+	  , XHRCors = __webpack_require__(277)
+	  , XHRLocal = __webpack_require__(279)
+	  , XHRFake = __webpack_require__(311)
+	  , InfoIframe = __webpack_require__(312)
+	  , InfoAjax = __webpack_require__(314)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:info-receiver');
+	  debug = __webpack_require__(264)('sockjs-client:info-receiver');
 	}
 
 	function InfoReceiver(baseUrl, urlInfo) {
@@ -29189,13 +32547,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 282 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
 	  ;
 
 	function XHRFake(/* method, url, payload, opts */) {
@@ -29219,22 +32577,22 @@
 
 
 /***/ },
-/* 283 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
-	  , JSON3 = __webpack_require__(259)
-	  , utils = __webpack_require__(227)
-	  , IframeTransport = __webpack_require__(258)
-	  , InfoReceiverIframe = __webpack_require__(284)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
+	  , JSON3 = __webpack_require__(288)
+	  , utils = __webpack_require__(256)
+	  , IframeTransport = __webpack_require__(287)
+	  , InfoReceiverIframe = __webpack_require__(313)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:info-iframe');
+	  debug = __webpack_require__(264)('sockjs-client:info-iframe');
 	}
 
 	function InfoIframe(baseUrl, url) {
@@ -29295,16 +32653,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }())))
 
 /***/ },
-/* 284 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var inherits = __webpack_require__(238)
-	  , EventEmitter = __webpack_require__(239).EventEmitter
-	  , JSON3 = __webpack_require__(259)
-	  , XHRLocalObject = __webpack_require__(250)
-	  , InfoAjax = __webpack_require__(285)
+	var inherits = __webpack_require__(267)
+	  , EventEmitter = __webpack_require__(268).EventEmitter
+	  , JSON3 = __webpack_require__(288)
+	  , XHRLocalObject = __webpack_require__(279)
+	  , InfoAjax = __webpack_require__(314)
 	  ;
 
 	function InfoReceiverIframe(transUrl) {
@@ -29334,20 +32692,20 @@
 
 
 /***/ },
-/* 285 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var EventEmitter = __webpack_require__(239).EventEmitter
-	  , inherits = __webpack_require__(238)
-	  , JSON3 = __webpack_require__(259)
-	  , objectUtils = __webpack_require__(264)
+	var EventEmitter = __webpack_require__(268).EventEmitter
+	  , inherits = __webpack_require__(267)
+	  , JSON3 = __webpack_require__(288)
+	  , objectUtils = __webpack_require__(293)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:info-ajax');
+	  debug = __webpack_require__(264)('sockjs-client:info-ajax');
 	}
 
 	function InfoAjax(url, AjaxObject) {
@@ -29390,23 +32748,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 286 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var urlUtils = __webpack_require__(230)
-	  , eventUtils = __webpack_require__(227)
-	  , JSON3 = __webpack_require__(259)
-	  , FacadeJS = __webpack_require__(287)
-	  , InfoIframeReceiver = __webpack_require__(284)
-	  , iframeUtils = __webpack_require__(263)
-	  , loc = __webpack_require__(278)
+	var urlUtils = __webpack_require__(259)
+	  , eventUtils = __webpack_require__(256)
+	  , JSON3 = __webpack_require__(288)
+	  , FacadeJS = __webpack_require__(316)
+	  , InfoIframeReceiver = __webpack_require__(313)
+	  , iframeUtils = __webpack_require__(292)
+	  , loc = __webpack_require__(307)
 	  ;
 
 	var debug = function() {};
 	if (process.env.NODE_ENV !== 'production') {
-	  debug = __webpack_require__(235)('sockjs-client:iframe-bootstrap');
+	  debug = __webpack_require__(264)('sockjs-client:iframe-bootstrap');
 	}
 
 	module.exports = function(SockJS, availableTransports) {
@@ -29499,13 +32857,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 287 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var JSON3 = __webpack_require__(259)
-	  , iframeUtils = __webpack_require__(263)
+	var JSON3 = __webpack_require__(288)
+	  , iframeUtils = __webpack_require__(292)
 	  ;
 
 	function FacadeJS(transport) {
@@ -29532,7 +32890,7 @@
 
 
 /***/ },
-/* 288 */
+/* 317 */
 /***/ function(module, exports) {
 
 	// Generated by CoffeeScript 1.7.1
@@ -30024,3353 +33382,6 @@
 
 	}).call(this);
 
-
-/***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactModal = __webpack_require__(290);
-
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-
-	var _create = __webpack_require__(310);
-
-	var _create2 = _interopRequireDefault(_create);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Create = function (_Component) {
-	  _inherits(Create, _Component);
-
-	  function Create(props) {
-	    _classCallCheck(this, Create);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Create).call(this, props));
-
-	    _this.state = { modalIsOpen: false };
-	    _this.openModal = _this.openModal.bind(_this);
-	    _this.closeModal = _this.closeModal.bind(_this);
-	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
-	    _this.handleSaveClicked = _this.handleSaveClicked.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Create, [{
-	    key: 'openModal',
-	    value: function openModal() {
-	      this.setState({ modalIsOpen: true });
-	    }
-	  }, {
-	    key: 'closeModal',
-	    value: function closeModal() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleModalCloseRequest',
-	    value: function handleModalCloseRequest() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleSaveClicked',
-	    value: function handleSaveClicked(e) {
-	      var _this2 = this;
-
-	      e.preventDefault();
-	      var newBook = {};
-	      var atributes = ["title", "author", "volume", "yearPublishing", "price", "signature", "deduction", "barCode"];
-	      atributes.map(function (element) {
-	        newBook[element] = _reactDom2.default.findDOMNode(_this2.refs[element]).value.trim();
-	      });
-	      (0, _create2.default)(newBook);
-	      //console.log(newBook);
-	      this.handleModalCloseRequest();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'mybtn' },
-	        _react2.default.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-success btn-primary', onClick: this.openModal },
-	          ' ',
-	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' }),
-	          ' Create'
-	        ),
-	        _react2.default.createElement(
-	          _reactModal2.default,
-	          {
-	            className: 'Modal__Bootstrap modal-dialog',
-	            closeTimeoutMS: 150,
-	            isOpen: this.state.modalIsOpen,
-	            onRequestClose: this.handleModalCloseRequest
-	          },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-content' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-header' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'close', onClick: this.handleModalCloseRequest },
-	                _react2.default.createElement(
-	                  'span',
-	                  { 'aria-hidden': 'true' },
-	                  '×'
-	                ),
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'sr-only' },
-	                  'Close'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'h4',
-	                { className: 'modal-title' },
-	                'Modal title'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-body' },
-	              _react2.default.createElement(
-	                'h4',
-	                null,
-	                'Really long content...'
-	              ),
-	              _react2.default.createElement(
-	                'form',
-	                { className: 'form-inline' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'form-group' },
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'exampleInputName2' },
-	                    'price'
-	                  ),
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'exampleInputName2', placeholder: 'price', ref: 'price' })
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'form-group' },
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'exampleInputName2' },
-	                    'signature'
-	                  ),
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'exampleInputName2', placeholder: 'signature', ref: 'signature' })
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'form',
-	                { className: 'form-horizontal' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'form-group' },
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'title'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'title', ref: 'title' })
-	                  ),
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'author'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'author', ref: 'author' })
-	                  ),
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'volume'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'volume', ref: 'volume' })
-	                  ),
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'year'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'yearPublishing', ref: 'yearPublishing' })
-	                  ),
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'deduction'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'deduction', ref: 'deduction' })
-	                  ),
-	                  _react2.default.createElement(
-	                    'label',
-	                    { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                    'barCode'
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10' },
-	                    _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'barCode', ref: 'barCode' })
-	                  )
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-footer' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	                'Close'
-	              ),
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'btn btn-primary', onClick: this.handleSaveClicked },
-	                'Create'
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Create;
-	}(_react.Component);
-
-	exports.default = Create;
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(291);
-
-
-
-/***/ },
-/* 291 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(34);
-	var ExecutionEnvironment = __webpack_require__(292);
-	var ModalPortal = React.createFactory(__webpack_require__(293));
-	var ariaAppHider = __webpack_require__(308);
-	var elementClass = __webpack_require__(309);
-	var renderSubtreeIntoContainer = __webpack_require__(34).unstable_renderSubtreeIntoContainer;
-	var Assign = __webpack_require__(297);
-
-	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
-	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
-
-	var Modal = React.createClass({
-
-	  displayName: 'Modal',
-	  statics: {
-	    setAppElement: function(element) {
-	        AppElement = ariaAppHider.setElement(element);
-	    },
-	    injectCSS: function() {
-	      "production" !== process.env.NODE_ENV
-	        && console.warn('React-Modal: injectCSS has been deprecated ' +
-	                        'and no longer has any effect. It will be removed in a later version');
-	    }
-	  },
-
-	  propTypes: {
-	    isOpen: React.PropTypes.bool.isRequired,
-	    style: React.PropTypes.shape({
-	      content: React.PropTypes.object,
-	      overlay: React.PropTypes.object
-	    }),
-	    appElement: React.PropTypes.instanceOf(SafeHTMLElement),
-	    onAfterOpen: React.PropTypes.func,
-	    onRequestClose: React.PropTypes.func,
-	    closeTimeoutMS: React.PropTypes.number,
-	    ariaHideApp: React.PropTypes.bool,
-	    shouldCloseOnOverlayClick: React.PropTypes.bool
-	  },
-
-	  getDefaultProps: function () {
-	    return {
-	      isOpen: false,
-	      ariaHideApp: true,
-	      closeTimeoutMS: 0,
-	      shouldCloseOnOverlayClick: true
-	    };
-	  },
-
-	  componentDidMount: function() {
-	    this.node = document.createElement('div');
-	    this.node.className = 'ReactModalPortal';
-	    AppElement.appendChild(this.node);
-	    this.renderPortal(this.props);
-	  },
-
-	  componentWillReceiveProps: function(newProps) {
-	    this.renderPortal(newProps);
-	  },
-
-	  componentWillUnmount: function() {
-	    ReactDOM.unmountComponentAtNode(this.node);
-	    AppElement.removeChild(this.node);
-	    elementClass(document.body).remove('ReactModal__Body--open');
-	  },
-
-	  renderPortal: function(props) {
-	    if (props.isOpen) {
-	      elementClass(document.body).add('ReactModal__Body--open');
-	    } else {
-	      elementClass(document.body).remove('ReactModal__Body--open');
-	    }
-
-	    if (props.ariaHideApp) {
-	      ariaAppHider.toggle(props.isOpen, props.appElement);
-	    }
-
-	    this.portal = renderSubtreeIntoContainer(this, ModalPortal(Assign({}, props, {defaultStyles: Modal.defaultStyles})), this.node);
-	  },
-
-	  render: function () {
-	    return React.DOM.noscript();
-	  }
-	});
-
-	Modal.defaultStyles = {
-	  overlay: {
-	    position        : 'fixed',
-	    top             : 0,
-	    left            : 0,
-	    right           : 0,
-	    bottom          : 0,
-	    backgroundColor : 'rgba(255, 255, 255, 0.75)'
-	  },
-	  content: {
-	    position                : 'absolute',
-	    top                     : '40px',
-	    left                    : '40px',
-	    right                   : '40px',
-	    bottom                  : '40px',
-	    border                  : '1px solid #ccc',
-	    background              : '#fff',
-	    overflow                : 'auto',
-	    WebkitOverflowScrolling : 'touch',
-	    borderRadius            : '4px',
-	    outline                 : 'none',
-	    padding                 : '20px'
-	  }
-	}
-
-	module.exports = Modal
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Based on code that is Copyright 2013-2015, Facebook, Inc.
-	  All rights reserved.
-	*/
-
-	(function () {
-		'use strict';
-
-		var canUseDOM = !!(
-			typeof window !== 'undefined' &&
-			window.document &&
-			window.document.createElement
-		);
-
-		var ExecutionEnvironment = {
-
-			canUseDOM: canUseDOM,
-
-			canUseWorkers: typeof Worker !== 'undefined',
-
-			canUseEventListeners:
-				canUseDOM && !!(window.addEventListener || window.attachEvent),
-
-			canUseViewport: canUseDOM && !!window.screen
-
-		};
-
-		if (true) {
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return ExecutionEnvironment;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = ExecutionEnvironment;
-		} else {
-			window.ExecutionEnvironment = ExecutionEnvironment;
-		}
-
-	}());
-
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-	var div = React.DOM.div;
-	var focusManager = __webpack_require__(294);
-	var scopeTab = __webpack_require__(296);
-	var Assign = __webpack_require__(297);
-
-	// so that our CSS is statically analyzable
-	var CLASS_NAMES = {
-	  overlay: {
-	    base: 'ReactModal__Overlay',
-	    afterOpen: 'ReactModal__Overlay--after-open',
-	    beforeClose: 'ReactModal__Overlay--before-close'
-	  },
-	  content: {
-	    base: 'ReactModal__Content',
-	    afterOpen: 'ReactModal__Content--after-open',
-	    beforeClose: 'ReactModal__Content--before-close'
-	  }
-	};
-
-	var ModalPortal = module.exports = React.createClass({
-
-	  displayName: 'ModalPortal',
-
-	  getDefaultProps: function() {
-	    return {
-	      style: {
-	        overlay: {},
-	        content: {}
-	      }
-	    };
-	  },
-
-	  getInitialState: function() {
-	    return {
-	      afterOpen: false,
-	      beforeClose: false
-	    };
-	  },
-
-	  componentDidMount: function() {
-	    // Focus needs to be set when mounting and already open
-	    if (this.props.isOpen) {
-	      this.setFocusAfterRender(true);
-	      this.open();
-	    }
-	  },
-
-	  componentWillUnmount: function() {
-	    clearTimeout(this.closeTimer);
-	  },
-
-	  componentWillReceiveProps: function(newProps) {
-	    // Focus only needs to be set once when the modal is being opened
-	    if (!this.props.isOpen && newProps.isOpen) {
-	      this.setFocusAfterRender(true);
-	      this.open();
-	    } else if (this.props.isOpen && !newProps.isOpen) {
-	      this.close();
-	    }
-	  },
-
-	  componentDidUpdate: function () {
-	    if (this.focusAfterRender) {
-	      this.focusContent();
-	      this.setFocusAfterRender(false);
-	    }
-	  },
-
-	  setFocusAfterRender: function (focus) {
-	    this.focusAfterRender = focus;
-	  },
-
-	  open: function() {
-	    focusManager.setupScopedFocus(this.node);
-	    focusManager.markForFocusLater();
-	    this.setState({isOpen: true}, function() {
-	      this.setState({afterOpen: true});
-
-	      if (this.props.isOpen && this.props.onAfterOpen) {
-	        this.props.onAfterOpen();
-	      }
-	    }.bind(this));
-	  },
-
-	  close: function() {
-	    if (!this.ownerHandlesClose())
-	      return;
-	    if (this.props.closeTimeoutMS > 0)
-	      this.closeWithTimeout();
-	    else
-	      this.closeWithoutTimeout();
-	  },
-
-	  focusContent: function() {
-	    this.refs.content.focus();
-	  },
-
-	  closeWithTimeout: function() {
-	    this.setState({beforeClose: true}, function() {
-	      this.closeTimer = setTimeout(this.closeWithoutTimeout, this.props.closeTimeoutMS);
-	    }.bind(this));
-	  },
-
-	  closeWithoutTimeout: function() {
-	    this.setState({
-	      afterOpen: false,
-	      beforeClose: false
-	    }, this.afterClose);
-	  },
-
-	  afterClose: function() {
-	    focusManager.returnFocus();
-	    focusManager.teardownScopedFocus();
-	  },
-
-	  handleKeyDown: function(event) {
-	    if (event.keyCode == 9 /*tab*/) scopeTab(this.refs.content, event);
-	    if (event.keyCode == 27 /*esc*/) {
-	      event.preventDefault();
-	      this.requestClose(event);
-	    }
-	  },
-
-	  handleOverlayClick: function(event) {
-	    var node = event.target
-
-	    while (node) {
-	      if (node === this.refs.content) return
-	      node = node.parentNode
-	    }
-
-	    if (this.props.shouldCloseOnOverlayClick) {
-	      if (this.ownerHandlesClose())
-	        this.requestClose(event);
-	      else
-	        this.focusContent();
-	    }
-	  },
-
-	  requestClose: function(event) {
-	    if (this.ownerHandlesClose())
-	      this.props.onRequestClose(event);
-	  },
-
-	  ownerHandlesClose: function() {
-	    return this.props.onRequestClose;
-	  },
-
-	  shouldBeClosed: function() {
-	    return !this.props.isOpen && !this.state.beforeClose;
-	  },
-
-	  buildClassName: function(which, additional) {
-	    var className = CLASS_NAMES[which].base;
-	    if (this.state.afterOpen)
-	      className += ' '+CLASS_NAMES[which].afterOpen;
-	    if (this.state.beforeClose)
-	      className += ' '+CLASS_NAMES[which].beforeClose;
-	    return additional ? className + ' ' + additional : className;
-	  },
-
-	  render: function() {
-	    var contentStyles = (this.props.className) ? {} : this.props.defaultStyles.content;
-	    var overlayStyles = (this.props.overlayClassName) ? {} : this.props.defaultStyles.overlay;
-
-	    return this.shouldBeClosed() ? div() : (
-	      div({
-	        ref: "overlay",
-	        className: this.buildClassName('overlay', this.props.overlayClassName),
-	        style: Assign({}, overlayStyles, this.props.style.overlay || {}),
-	        onClick: this.handleOverlayClick
-	      },
-	        div({
-	          ref: "content",
-	          style: Assign({}, contentStyles, this.props.style.content || {}),
-	          className: this.buildClassName('content', this.props.className),
-	          tabIndex: "-1",
-	          onKeyDown: this.handleKeyDown
-	        },
-	          this.props.children
-	        )
-	      )
-	    );
-	  }
-	});
-
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var findTabbable = __webpack_require__(295);
-	var modalElement = null;
-	var focusLaterElement = null;
-	var needToFocus = false;
-
-	function handleBlur(event) {
-	  needToFocus = true;
-	}
-
-	function handleFocus(event) {
-	  if (needToFocus) {
-	    needToFocus = false;
-	    if (!modalElement) {
-	      return;
-	    }
-	    // need to see how jQuery shims document.on('focusin') so we don't need the
-	    // setTimeout, firefox doesn't support focusin, if it did, we could focus
-	    // the element outside of a setTimeout. Side-effect of this implementation 
-	    // is that the document.body gets focus, and then we focus our element right 
-	    // after, seems fine.
-	    setTimeout(function() {
-	      if (modalElement.contains(document.activeElement))
-	        return;
-	      var el = (findTabbable(modalElement)[0] || modalElement);
-	      el.focus();
-	    }, 0);
-	  }
-	}
-
-	exports.markForFocusLater = function() {
-	  focusLaterElement = document.activeElement;
-	};
-
-	exports.returnFocus = function() {
-	  try {
-	    focusLaterElement.focus();
-	  }
-	  catch (e) {
-	    console.warn('You tried to return focus to '+focusLaterElement+' but it is not in the DOM anymore');
-	  }
-	  focusLaterElement = null;
-	};
-
-	exports.setupScopedFocus = function(element) {
-	  modalElement = element;
-
-	  if (window.addEventListener) {
-	    window.addEventListener('blur', handleBlur, false);
-	    document.addEventListener('focus', handleFocus, true);
-	  } else {
-	    window.attachEvent('onBlur', handleBlur);
-	    document.attachEvent('onFocus', handleFocus);
-	  }
-	};
-
-	exports.teardownScopedFocus = function() {
-	  modalElement = null;
-
-	  if (window.addEventListener) {
-	    window.removeEventListener('blur', handleBlur);
-	    document.removeEventListener('focus', handleFocus);
-	  } else {
-	    window.detachEvent('onBlur', handleBlur);
-	    document.detachEvent('onFocus', handleFocus);
-	  }
-	};
-
-
-
-
-/***/ },
-/* 295 */
-/***/ function(module, exports) {
-
-	/*!
-	 * Adapted from jQuery UI core
-	 *
-	 * http://jqueryui.com
-	 *
-	 * Copyright 2014 jQuery Foundation and other contributors
-	 * Released under the MIT license.
-	 * http://jquery.org/license
-	 *
-	 * http://api.jqueryui.com/category/ui-core/
-	 */
-
-	function focusable(element, isTabIndexNotNaN) {
-	  var nodeName = element.nodeName.toLowerCase();
-	  return (/input|select|textarea|button|object/.test(nodeName) ?
-	    !element.disabled :
-	    "a" === nodeName ?
-	      element.href || isTabIndexNotNaN :
-	      isTabIndexNotNaN) && visible(element);
-	}
-
-	function hidden(el) {
-	  return (el.offsetWidth <= 0 && el.offsetHeight <= 0) ||
-	    el.style.display === 'none';
-	}
-
-	function visible(element) {
-	  while (element) {
-	    if (element === document.body) break;
-	    if (hidden(element)) return false;
-	    element = element.parentNode;
-	  }
-	  return true;
-	}
-
-	function tabbable(element) {
-	  var tabIndex = element.getAttribute('tabindex');
-	  if (tabIndex === null) tabIndex = undefined;
-	  var isTabIndexNaN = isNaN(tabIndex);
-	  return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
-	}
-
-	function findTabbableDescendants(element) {
-	  return [].slice.call(element.querySelectorAll('*'), 0).filter(function(el) {
-	    return tabbable(el);
-	  });
-	}
-
-	module.exports = findTabbableDescendants;
-
-
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var findTabbable = __webpack_require__(295);
-
-	module.exports = function(node, event) {
-	  var tabbable = findTabbable(node);
-	  if (!tabbable.length) {
-	      event.preventDefault();
-	      return;
-	  }
-	  var finalTabbable = tabbable[event.shiftKey ? 0 : tabbable.length - 1];
-	  var leavingFinalTabbable = (
-	    finalTabbable === document.activeElement ||
-	    // handle immediate shift+tab after opening with mouse
-	    node === document.activeElement
-	  );
-	  if (!leavingFinalTabbable) return;
-	  event.preventDefault();
-	  var target = tabbable[event.shiftKey ? tabbable.length - 1 : 0];
-	  target.focus();
-	};
-
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var baseAssign = __webpack_require__(298),
-	    createAssigner = __webpack_require__(304),
-	    keys = __webpack_require__(300);
-
-	/**
-	 * A specialized version of `_.assign` for customizing assigned values without
-	 * support for argument juggling, multiple sources, and `this` binding `customizer`
-	 * functions.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @param {Function} customizer The function to customize assigned values.
-	 * @returns {Object} Returns `object`.
-	 */
-	function assignWith(object, source, customizer) {
-	  var index = -1,
-	      props = keys(source),
-	      length = props.length;
-
-	  while (++index < length) {
-	    var key = props[index],
-	        value = object[key],
-	        result = customizer(value, source[key], key, object, source);
-
-	    if ((result === result ? (result !== value) : (value === value)) ||
-	        (value === undefined && !(key in object))) {
-	      object[key] = result;
-	    }
-	  }
-	  return object;
-	}
-
-	/**
-	 * Assigns own enumerable properties of source object(s) to the destination
-	 * object. Subsequent sources overwrite property assignments of previous sources.
-	 * If `customizer` is provided it is invoked to produce the assigned values.
-	 * The `customizer` is bound to `thisArg` and invoked with five arguments:
-	 * (objectValue, sourceValue, key, object, source).
-	 *
-	 * **Note:** This method mutates `object` and is based on
-	 * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @alias extend
-	 * @category Object
-	 * @param {Object} object The destination object.
-	 * @param {...Object} [sources] The source objects.
-	 * @param {Function} [customizer] The function to customize assigned values.
-	 * @param {*} [thisArg] The `this` binding of `customizer`.
-	 * @returns {Object} Returns `object`.
-	 * @example
-	 *
-	 * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
-	 * // => { 'user': 'fred', 'age': 40 }
-	 *
-	 * // using a customizer callback
-	 * var defaults = _.partialRight(_.assign, function(value, other) {
-	 *   return _.isUndefined(value) ? other : value;
-	 * });
-	 *
-	 * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
-	 * // => { 'user': 'barney', 'age': 36 }
-	 */
-	var assign = createAssigner(function(object, source, customizer) {
-	  return customizer
-	    ? assignWith(object, source, customizer)
-	    : baseAssign(object, source);
-	});
-
-	module.exports = assign;
-
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var baseCopy = __webpack_require__(299),
-	    keys = __webpack_require__(300);
-
-	/**
-	 * The base implementation of `_.assign` without support for argument juggling,
-	 * multiple sources, and `customizer` functions.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @returns {Object} Returns `object`.
-	 */
-	function baseAssign(object, source) {
-	  return source == null
-	    ? object
-	    : baseCopy(source, keys(source), object);
-	}
-
-	module.exports = baseAssign;
-
-
-/***/ },
-/* 299 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/**
-	 * Copies properties of `source` to `object`.
-	 *
-	 * @private
-	 * @param {Object} source The object to copy properties from.
-	 * @param {Array} props The property names to copy.
-	 * @param {Object} [object={}] The object to copy properties to.
-	 * @returns {Object} Returns `object`.
-	 */
-	function baseCopy(source, props, object) {
-	  object || (object = {});
-
-	  var index = -1,
-	      length = props.length;
-
-	  while (++index < length) {
-	    var key = props[index];
-	    object[key] = source[key];
-	  }
-	  return object;
-	}
-
-	module.exports = baseCopy;
-
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.1.2 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var getNative = __webpack_require__(301),
-	    isArguments = __webpack_require__(302),
-	    isArray = __webpack_require__(303);
-
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^\d+$/;
-
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeKeys = getNative(Object, 'keys');
-
-	/**
-	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-
-	/**
-	 * Checks if `value` is array-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value));
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return value > -1 && value % 1 == 0 && value < length;
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-
-	/**
-	 * A fallback implementation of `Object.keys` which creates an array of the
-	 * own enumerable property names of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function shimKeys(object) {
-	  var props = keysIn(object),
-	      propsLength = props.length,
-	      length = propsLength && object.length;
-
-	  var allowIndexes = !!length && isLength(length) &&
-	    (isArray(object) || isArguments(object));
-
-	  var index = -1,
-	      result = [];
-
-	  while (++index < propsLength) {
-	    var key = props[index];
-	    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-
-	/**
-	 * Creates an array of the own enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects. See the
-	 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
-	 * for more details.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keys(new Foo);
-	 * // => ['a', 'b'] (iteration order is not guaranteed)
-	 *
-	 * _.keys('hi');
-	 * // => ['0', '1']
-	 */
-	var keys = !nativeKeys ? shimKeys : function(object) {
-	  var Ctor = object == null ? undefined : object.constructor;
-	  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-	      (typeof object != 'function' && isArrayLike(object))) {
-	    return shimKeys(object);
-	  }
-	  return isObject(object) ? nativeKeys(object) : [];
-	};
-
-	/**
-	 * Creates an array of the own and inherited enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keysIn(new Foo);
-	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
-	 */
-	function keysIn(object) {
-	  if (object == null) {
-	    return [];
-	  }
-	  if (!isObject(object)) {
-	    object = Object(object);
-	  }
-	  var length = object.length;
-	  length = (length && isLength(length) &&
-	    (isArray(object) || isArguments(object)) && length) || 0;
-
-	  var Ctor = object.constructor,
-	      index = -1,
-	      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
-	      result = Array(length),
-	      skipIndexes = length > 0;
-
-	  while (++index < length) {
-	    result[index] = (index + '');
-	  }
-	  for (var key in object) {
-	    if (!(skipIndexes && isIndex(key, length)) &&
-	        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-
-	module.exports = keys;
-
-
-/***/ },
-/* 301 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.9.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/** `Object#toString` result references. */
-	var funcTag = '[object Function]';
-
-	/** Used to detect host constructors (Safari > 5). */
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-	/**
-	 * Checks if `value` is object-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var fnToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objToString = objectProto.toString;
-
-	/** Used to detect if a method is native. */
-	var reIsNative = RegExp('^' +
-	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-	);
-
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-	function getNative(object, key) {
-	  var value = object == null ? undefined : object[key];
-	  return isNative(value) ? value : undefined;
-	}
-
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in older versions of Chrome and Safari which return 'function' for regexes
-	  // and Safari 8 equivalents which return 'object' for typed array constructors.
-	  return isObject(value) && objToString.call(value) == funcTag;
-	}
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-
-	/**
-	 * Checks if `value` is a native function.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
-	 * @example
-	 *
-	 * _.isNative(Array.prototype.push);
-	 * // => true
-	 *
-	 * _.isNative(_);
-	 * // => false
-	 */
-	function isNative(value) {
-	  if (value == null) {
-	    return false;
-	  }
-	  if (isFunction(value)) {
-	    return reIsNative.test(fnToString.call(value));
-	  }
-	  return isObjectLike(value) && reIsHostCtor.test(value);
-	}
-
-	module.exports = getNative;
-
-
-/***/ },
-/* 302 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.8 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/** Used as references for various `Number` constants. */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/** `Object#toString` result references. */
-	var argsTag = '[object Arguments]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]';
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/** Built-in value references. */
-	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-
-	/**
-	 * Checks if `value` is likely an `arguments` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isArguments(function() { return arguments; }());
-	 * // => true
-	 *
-	 * _.isArguments([1, 2, 3]);
-	 * // => false
-	 */
-	function isArguments(value) {
-	  // Safari 8.1 incorrectly makes `arguments.callee` enumerable in strict mode.
-	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
-	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
-	}
-
-	/**
-	 * Checks if `value` is array-like. A value is considered array-like if it's
-	 * not a function and has a `value.length` that's an integer greater than or
-	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLike(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLike('abc');
-	 * // => true
-	 *
-	 * _.isArrayLike(_.noop);
-	 * // => false
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value)) && !isFunction(value);
-	}
-
-	/**
-	 * This method is like `_.isArrayLike` except that it also checks if `value`
-	 * is an object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLikeObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject('abc');
-	 * // => false
-	 *
-	 * _.isArrayLikeObject(_.noop);
-	 * // => false
-	 */
-	function isArrayLikeObject(value) {
-	  return isObjectLike(value) && isArrayLike(value);
-	}
-
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 8 which returns 'object' for typed array and weak map constructors,
-	  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.
-	  var tag = isObject(value) ? objectToString.call(value) : '';
-	  return tag == funcTag || tag == genTag;
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 * @example
-	 *
-	 * _.isLength(3);
-	 * // => true
-	 *
-	 * _.isLength(Number.MIN_VALUE);
-	 * // => false
-	 *
-	 * _.isLength(Infinity);
-	 * // => false
-	 *
-	 * _.isLength('3');
-	 * // => false
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' &&
-	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-	function isObject(value) {
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	module.exports = isArguments;
-
-
-/***/ },
-/* 303 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.4 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/** `Object#toString` result references. */
-	var arrayTag = '[object Array]',
-	    funcTag = '[object Function]';
-
-	/** Used to detect host constructors (Safari > 5). */
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-	/**
-	 * Checks if `value` is object-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var fnToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objToString = objectProto.toString;
-
-	/** Used to detect if a method is native. */
-	var reIsNative = RegExp('^' +
-	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-	);
-
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeIsArray = getNative(Array, 'isArray');
-
-	/**
-	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-	function getNative(object, key) {
-	  var value = object == null ? undefined : object[key];
-	  return isNative(value) ? value : undefined;
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(function() { return arguments; }());
-	 * // => false
-	 */
-	var isArray = nativeIsArray || function(value) {
-	  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
-	};
-
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in older versions of Chrome and Safari which return 'function' for regexes
-	  // and Safari 8 equivalents which return 'object' for typed array constructors.
-	  return isObject(value) && objToString.call(value) == funcTag;
-	}
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-
-	/**
-	 * Checks if `value` is a native function.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
-	 * @example
-	 *
-	 * _.isNative(Array.prototype.push);
-	 * // => true
-	 *
-	 * _.isNative(_);
-	 * // => false
-	 */
-	function isNative(value) {
-	  if (value == null) {
-	    return false;
-	  }
-	  if (isFunction(value)) {
-	    return reIsNative.test(fnToString.call(value));
-	  }
-	  return isObjectLike(value) && reIsHostCtor.test(value);
-	}
-
-	module.exports = isArray;
-
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.1.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var bindCallback = __webpack_require__(305),
-	    isIterateeCall = __webpack_require__(306),
-	    restParam = __webpack_require__(307);
-
-	/**
-	 * Creates a function that assigns properties of source object(s) to a given
-	 * destination object.
-	 *
-	 * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
-	 *
-	 * @private
-	 * @param {Function} assigner The function to assign values.
-	 * @returns {Function} Returns the new assigner function.
-	 */
-	function createAssigner(assigner) {
-	  return restParam(function(object, sources) {
-	    var index = -1,
-	        length = object == null ? 0 : sources.length,
-	        customizer = length > 2 ? sources[length - 2] : undefined,
-	        guard = length > 2 ? sources[2] : undefined,
-	        thisArg = length > 1 ? sources[length - 1] : undefined;
-
-	    if (typeof customizer == 'function') {
-	      customizer = bindCallback(customizer, thisArg, 5);
-	      length -= 2;
-	    } else {
-	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
-	      length -= (customizer ? 1 : 0);
-	    }
-	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
-	      customizer = length < 3 ? undefined : customizer;
-	      length = 1;
-	    }
-	    while (++index < length) {
-	      var source = sources[index];
-	      if (source) {
-	        assigner(object, source, customizer);
-	      }
-	    }
-	    return object;
-	  });
-	}
-
-	module.exports = createAssigner;
-
-
-/***/ },
-/* 305 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/**
-	 * A specialized version of `baseCallback` which only supports `this` binding
-	 * and specifying the number of arguments to provide to `func`.
-	 *
-	 * @private
-	 * @param {Function} func The function to bind.
-	 * @param {*} thisArg The `this` binding of `func`.
-	 * @param {number} [argCount] The number of arguments to provide to `func`.
-	 * @returns {Function} Returns the callback.
-	 */
-	function bindCallback(func, thisArg, argCount) {
-	  if (typeof func != 'function') {
-	    return identity;
-	  }
-	  if (thisArg === undefined) {
-	    return func;
-	  }
-	  switch (argCount) {
-	    case 1: return function(value) {
-	      return func.call(thisArg, value);
-	    };
-	    case 3: return function(value, index, collection) {
-	      return func.call(thisArg, value, index, collection);
-	    };
-	    case 4: return function(accumulator, value, index, collection) {
-	      return func.call(thisArg, accumulator, value, index, collection);
-	    };
-	    case 5: return function(value, other, key, object, source) {
-	      return func.call(thisArg, value, other, key, object, source);
-	    };
-	  }
-	  return function() {
-	    return func.apply(thisArg, arguments);
-	  };
-	}
-
-	/**
-	 * This method returns the first argument provided to it.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Utility
-	 * @param {*} value Any value.
-	 * @returns {*} Returns `value`.
-	 * @example
-	 *
-	 * var object = { 'user': 'fred' };
-	 *
-	 * _.identity(object) === object;
-	 * // => true
-	 */
-	function identity(value) {
-	  return value;
-	}
-
-	module.exports = bindCallback;
-
-
-/***/ },
-/* 306 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.9 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^\d+$/;
-
-	/**
-	 * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-
-	/**
-	 * Checks if `value` is array-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value));
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return value > -1 && value % 1 == 0 && value < length;
-	}
-
-	/**
-	 * Checks if the provided arguments are from an iteratee call.
-	 *
-	 * @private
-	 * @param {*} value The potential iteratee value argument.
-	 * @param {*} index The potential iteratee index or key argument.
-	 * @param {*} object The potential iteratee object argument.
-	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
-	 */
-	function isIterateeCall(value, index, object) {
-	  if (!isObject(object)) {
-	    return false;
-	  }
-	  var type = typeof index;
-	  if (type == 'number'
-	      ? (isArrayLike(object) && isIndex(index, object.length))
-	      : (type == 'string' && index in object)) {
-	    var other = object[index];
-	    return value === value ? (value === other) : (other !== other);
-	  }
-	  return false;
-	}
-
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-
-	module.exports = isIterateeCall;
-
-
-/***/ },
-/* 307 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.6.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/** Used as the `TypeError` message for "Functions" methods. */
-	var FUNC_ERROR_TEXT = 'Expected a function';
-
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeMax = Math.max;
-
-	/**
-	 * Creates a function that invokes `func` with the `this` binding of the
-	 * created function and arguments from `start` and beyond provided as an array.
-	 *
-	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Function
-	 * @param {Function} func The function to apply a rest parameter to.
-	 * @param {number} [start=func.length-1] The start position of the rest parameter.
-	 * @returns {Function} Returns the new function.
-	 * @example
-	 *
-	 * var say = _.restParam(function(what, names) {
-	 *   return what + ' ' + _.initial(names).join(', ') +
-	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
-	 * });
-	 *
-	 * say('hello', 'fred', 'barney', 'pebbles');
-	 * // => 'hello fred, barney, & pebbles'
-	 */
-	function restParam(func, start) {
-	  if (typeof func != 'function') {
-	    throw new TypeError(FUNC_ERROR_TEXT);
-	  }
-	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
-	  return function() {
-	    var args = arguments,
-	        index = -1,
-	        length = nativeMax(args.length - start, 0),
-	        rest = Array(length);
-
-	    while (++index < length) {
-	      rest[index] = args[start + index];
-	    }
-	    switch (start) {
-	      case 0: return func.call(this, rest);
-	      case 1: return func.call(this, args[0], rest);
-	      case 2: return func.call(this, args[0], args[1], rest);
-	    }
-	    var otherArgs = Array(start + 1);
-	    index = -1;
-	    while (++index < start) {
-	      otherArgs[index] = args[index];
-	    }
-	    otherArgs[start] = rest;
-	    return func.apply(this, otherArgs);
-	  };
-	}
-
-	module.exports = restParam;
-
-
-/***/ },
-/* 308 */
-/***/ function(module, exports) {
-
-	var _element = typeof document !== 'undefined' ? document.body : null;
-
-	function setElement(element) {
-	  if (typeof element === 'string') {
-	    var el = document.querySelectorAll(element);
-	    element = 'length' in el ? el[0] : el;
-	  }
-	  _element = element || _element;
-	  return _element;
-	}
-
-	function hide(appElement) {
-	  validateElement(appElement);
-	  (appElement || _element).setAttribute('aria-hidden', 'true');
-	}
-
-	function show(appElement) {
-	  validateElement(appElement);
-	  (appElement || _element).removeAttribute('aria-hidden');
-	}
-
-	function toggle(shouldHide, appElement) {
-	  if (shouldHide)
-	    hide(appElement);
-	  else
-	    show(appElement);
-	}
-
-	function validateElement(appElement) {
-	  if (!appElement && !_element)
-	    throw new Error('react-modal: You must set an element with `Modal.setAppElement(el)` to make this accessible');
-	}
-
-	function resetForTesting() {
-	  _element = document.body;
-	}
-
-	exports.toggle = toggle;
-	exports.setElement = setElement;
-	exports.show = show;
-	exports.hide = hide;
-	exports.resetForTesting = resetForTesting;
-
-
-/***/ },
-/* 309 */
-/***/ function(module, exports) {
-
-	module.exports = function(opts) {
-	  return new ElementClass(opts)
-	}
-
-	function indexOf(arr, prop) {
-	  if (arr.indexOf) return arr.indexOf(prop)
-	  for (var i = 0, len = arr.length; i < len; i++)
-	    if (arr[i] === prop) return i
-	  return -1
-	}
-
-	function ElementClass(opts) {
-	  if (!(this instanceof ElementClass)) return new ElementClass(opts)
-	  var self = this
-	  if (!opts) opts = {}
-
-	  // similar doing instanceof HTMLElement but works in IE8
-	  if (opts.nodeType) opts = {el: opts}
-
-	  this.opts = opts
-	  this.el = opts.el || document.body
-	  if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
-	}
-
-	ElementClass.prototype.add = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (el.className === "") return el.className = className
-	  var classes = el.className.split(' ')
-	  if (indexOf(classes, className) > -1) return classes
-	  classes.push(className)
-	  el.className = classes.join(' ')
-	  return classes
-	}
-
-	ElementClass.prototype.remove = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (el.className === "") return
-	  var classes = el.className.split(' ')
-	  var idx = indexOf(classes, className)
-	  if (idx > -1) classes.splice(idx, 1)
-	  el.className = classes.join(' ')
-	  return classes
-	}
-
-	ElementClass.prototype.has = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  var classes = el.className.split(' ')
-	  return indexOf(classes, className) > -1
-	}
-
-	ElementClass.prototype.toggle = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (this.has(className)) this.remove(className)
-	  else this.add(className)
-	}
-
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = createAction;
-
-	var _axios = __webpack_require__(203);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _config = __webpack_require__(221);
-
-	var config = _interopRequireWildcard(_config);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function createAction(data) {
-	  var url = config.DEFALT_BASE_URL + '/' + config.DEFALT_ENDPOINT;
-	  _axios2.default.post(url, data).catch(function (response) {
-	    alert("Status code: ".concat(response.status));
-	  });
-	}
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactModal = __webpack_require__(290);
-
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-
-	var _reactRedux = __webpack_require__(173);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Read = function (_Component) {
-	  _inherits(Read, _Component);
-
-	  function Read(props) {
-	    _classCallCheck(this, Read);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Read).call(this, props));
-
-	    _this.state = { modalIsOpen: false };
-	    _this.openModal = _this.openModal.bind(_this);
-	    _this.closeModal = _this.closeModal.bind(_this);
-	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Read, [{
-	    key: 'openModal',
-	    value: function openModal() {
-	      this.setState({ modalIsOpen: true });
-	    }
-	  }, {
-	    key: 'closeModal',
-	    value: function closeModal() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleModalCloseRequest',
-	    value: function handleModalCloseRequest() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'loadData',
-	    value: function loadData() {
-	      if (this.props.activeBook.length == 0) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Please select an element '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Visualization'
-	            ),
-	            _react2.default.createElement(
-	              'form',
-	              { className: 'form-horizontal' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'price'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.price
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'signature'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.signature
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'title'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.title
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'author'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.author
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'volume'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.volume
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'year'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.yearPublishing
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'deduction'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.deduction,
-	                    ' '
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'barCode'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement(
-	                    'h4',
-	                    null,
-	                    this.props.activeBook.barCode
-	                  )
-	                )
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'mybtn' },
-	        _react2.default.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-info btn-primary', onClick: this.openModal },
-	          ' ',
-	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open' }),
-	          'Read'
-	        ),
-	        _react2.default.createElement(
-	          _reactModal2.default,
-	          {
-	            className: 'Modal__Bootstrap modal-dialog',
-	            closeTimeoutMS: 150,
-	            isOpen: this.state.modalIsOpen,
-	            onRequestClose: this.handleModalCloseRequest },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-content' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-header' },
-	              _react2.default.createElement(
-	                'h4',
-	                { className: 'modal-title' },
-	                'Modal title'
-	              )
-	            ),
-	            this.loadData()
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Read;
-	}(_react.Component);
-
-	function mapStateToProps(_ref) {
-	  var activeBook = _ref.activeBook;
-
-	  return { activeBook: activeBook };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Read);
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactModal = __webpack_require__(290);
-
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _update = __webpack_require__(313);
-
-	var _update2 = _interopRequireDefault(_update);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Update = function (_Component) {
-	  _inherits(Update, _Component);
-
-	  function Update(props) {
-	    _classCallCheck(this, Update);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Update).call(this, props));
-
-	    _this.state = { modalIsOpen: false };
-	    _this.openModal = _this.openModal.bind(_this);
-	    _this.closeModal = _this.closeModal.bind(_this);
-	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
-	    _this.handleUpdateClicked = _this.handleUpdateClicked.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Update, [{
-	    key: 'openModal',
-	    value: function openModal() {
-	      this.setState({ modalIsOpen: true });
-	    }
-	  }, {
-	    key: 'closeModal',
-	    value: function closeModal() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleModalCloseRequest',
-	    value: function handleModalCloseRequest() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'loadData',
-	    value: function loadData() {
-	      if (this.props.activeBook.length == 0) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Please select an element '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Update ...'
-	            ),
-	            _react2.default.createElement(
-	              'form',
-	              { className: 'form-horizontal' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'price'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'price', defaultValue: this.props.activeBook.price, ref: 'price' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'signature'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'signature', defaultValue: this.props.activeBook.signature, ref: 'signature' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'title'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'title', defaultValue: this.props.activeBook.title, ref: 'title' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'author'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'author', defaultValue: this.props.activeBook.author, ref: 'author' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'volume'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'volume', defaultValue: this.props.activeBook.volume, ref: 'volume' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'year'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'yearPublishing', defaultValue: this.props.activeBook.yearPublishing, ref: 'yearPublishing' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'deduction'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'deduction', defaultValue: this.props.activeBook.deduction, ref: 'deduction' })
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { 'for': 'inputEmail3', className: 'col-sm-2 control-label' },
-	                  'barCode'
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-10' },
-	                  _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail3', placeholder: 'barCode', defaultValue: this.props.activeBook.barCode, ref: 'barCode' })
-	                )
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            ),
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-primary', onClick: this.handleUpdateClicked },
-	              'Update'
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'handleUpdateClicked',
-	    value: function handleUpdateClicked(e) {
-	      var _this2 = this;
-
-	      e.preventDefault();
-	      var updateBook = {};
-	      var atributes = ["title", "author", "volume", "yearPublishing", "price", "signature", "deduction", "barCode"];
-	      atributes.map(function (element) {
-	        updateBook[element] = _reactDom2.default.findDOMNode(_this2.refs[element]).value.trim();
-	      });
-	      updateBook['price'] = parseFloat(updateBook['price']);
-	      (0, _update2.default)(this.props.activeBook, updateBook);
-	      //console.log(this.props.activeBook);
-	      //this.props.onUpdate(this.props.selectedElement, updateBook);
-	      this.handleModalCloseRequest();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'mybtn' },
-	        _react2.default.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-warning', onClick: this.openModal },
-	          ' ',
-	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-pencil' }),
-	          ' Update'
-	        ),
-	        _react2.default.createElement(
-	          _reactModal2.default,
-	          {
-	            className: 'Modal__Bootstrap modal-dialog',
-	            closeTimeoutMS: 150,
-	            isOpen: this.state.modalIsOpen,
-	            onRequestClose: this.handleModalCloseRequest },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-content' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-header' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'close', onClick: this.handleUpdateClicked },
-	                _react2.default.createElement(
-	                  'span',
-	                  { 'aria-hidden': 'true' },
-	                  '×'
-	                ),
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'sr-only' },
-	                  'Close'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'h4',
-	                { className: 'modal-title' },
-	                'Modal title'
-	              )
-	            ),
-	            this.loadData()
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Update;
-	}(_react.Component);
-
-	function mapStateToProps(_ref) {
-	  var activeBook = _ref.activeBook;
-
-	  return { activeBook: activeBook };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Update);
-
-/***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = updateAction;
-
-	var _axios = __webpack_require__(203);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _config = __webpack_require__(221);
-
-	var config = _interopRequireWildcard(_config);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function updateAction(olddata, newdata) {
-
-	  var url = olddata._links.self.href;
-	  var data = new Object();
-	  Object.keys(newdata).forEach(function (key) {
-	    if (newdata[key] != olddata[key]) {
-	      data[key] = newdata[key];
-	    }
-	  });
-
-	  _axios2.default.patch(url, data).catch(function (response) {
-	    alert("Status code: ".concat(response.status));
-	  });
-	}
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactModal = __webpack_require__(290);
-
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _delete = __webpack_require__(315);
-
-	var _delete2 = _interopRequireDefault(_delete);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Delete = function (_Component) {
-	  _inherits(Delete, _Component);
-
-	  function Delete(props) {
-	    _classCallCheck(this, Delete);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Delete).call(this, props));
-
-	    _this.state = { modalIsOpen: false };
-	    _this.openModal = _this.openModal.bind(_this);
-	    _this.closeModal = _this.closeModal.bind(_this);
-	    _this.handleModalCloseRequest = _this.handleModalCloseRequest.bind(_this);
-	    _this.handleDeleteClicked = _this.handleDeleteClicked.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Delete, [{
-	    key: 'openModal',
-	    value: function openModal() {
-	      this.setState({ modalIsOpen: true });
-	    }
-	  }, {
-	    key: 'closeModal',
-	    value: function closeModal() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleModalCloseRequest',
-	    value: function handleModalCloseRequest() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'handleDeleteClicked',
-	    value: function handleDeleteClicked(e) {
-	      e.preventDefault();
-	      (0, _delete2.default)(this.props.activeBook._links.self.href);
-	      this.handleModalCloseRequest();
-	    }
-	  }, {
-	    key: 'deleteBody',
-	    value: function deleteBody() {
-	      if (this.props.activeBook.length == 0) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Please select an element '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'Are you sure want to delete book with title: ',
-	              this.props.activeBook.title,
-	              ' '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-footer' },
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-default', onClick: this.handleModalCloseRequest },
-	              'Close'
-	            ),
-	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'btn btn-primary', onClick: this.handleDeleteClicked },
-	              'Delete'
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'mybtn' },
-	        _react2.default.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-danger', onClick: this.openModal },
-	          ' ',
-	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash' }),
-	          ' Delete '
-	        ),
-	        _react2.default.createElement(
-	          _reactModal2.default,
-	          {
-	            className: 'Modal__Bootstrap modal-dialog',
-	            closeTimeoutMS: 150,
-	            isOpen: this.state.modalIsOpen,
-	            onRequestClose: this.handleModalCloseRequest },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-content' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'modal-header' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'close', onClick: this.handleModalCloseRequest },
-	                _react2.default.createElement(
-	                  'span',
-	                  { 'aria-hidden': 'true' },
-	                  '×'
-	                ),
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'sr-only' },
-	                  'Close'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'h4',
-	                { className: 'modal-title' },
-	                'Delete Element'
-	              )
-	            ),
-	            this.deleteBody()
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Delete;
-	}(_react.Component);
-
-	function mapStateToProps(_ref) {
-	  var activeBook = _ref.activeBook;
-
-	  return { activeBook: activeBook };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Delete);
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = deleteAction;
-
-	var _axios = __webpack_require__(203);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function deleteAction(url) {
-	  _axios2.default.delete(url).catch(function (response) {
-	    alert("Status code: ".concat(response.status));
-	  });
-	}
-
-/***/ },
-/* 316 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _index = __webpack_require__(202);
-
-	var _redux = __webpack_require__(180);
-
-	var _set_page_size = __webpack_require__(317);
-
-	var _config = __webpack_require__(221);
-
-	var config = _interopRequireWildcard(_config);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var firstG, lastG, nextG, prevG;
-
-	var Pager = function (_Component) {
-	  _inherits(Pager, _Component);
-
-	  function Pager(props) {
-	    _classCallCheck(this, Pager);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Pager).call(this, props));
-
-	    _this.state = { pageSize: config.DEFALT_PAGE_SIZE,
-	      pageNumber: config.DEFALT_PAGE_NUMBER };
-	    _this.onChangePageSize = _this.onChangePageSize.bind(_this);
-	    _this.nextPage = _this.nextPage.bind(_this);
-	    _this.prevPage = _this.prevPage.bind(_this);
-	    _this.firstPage = _this.firstPage.bind(_this);
-	    _this.lastPage = _this.lastPage.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Pager, [{
-	    key: 'onChangePageSize',
-	    value: function onChangePageSize(event) {
-	      this.props.setPageSize(event.target.value);
-	      this.setState({ pageSize: event.target.value });
-	      var newPage = Math.floor(this.state.pageSize * parseInt(this.state.pageNumber) / event.target.value);
-	      this.setState({ pageNumber: newPage });
-	      this.props.fetchWeather(event.target.value, newPage, this.props.sortBy);
-	    }
-	  }, {
-	    key: 'nextPage',
-	    value: function nextPage() {
-	      this.props.fetchWeather(this.state.pageSize, nextG, this.props.sortBy);
-	      this.setState({ pageNumber: nextG });
-	    }
-	  }, {
-	    key: 'prevPage',
-	    value: function prevPage() {
-	      this.props.fetchWeather(this.state.pageSize, prevG, this.props.sortBy);
-	      this.setState({ pageNumber: prevG });
-	    }
-	  }, {
-	    key: 'firstPage',
-	    value: function firstPage() {
-	      this.props.fetchWeather(this.state.pageSize, firstG, this.props.sortBy);
-	      this.setState({ pageNumber: firstG });
-	    }
-	  }, {
-	    key: 'lastPage',
-	    value: function lastPage() {
-	      this.props.fetchWeather(this.state.pageSize, lastG, this.props.sortBy);
-	      this.setState({ pageNumber: lastG });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var navLinks = [];
-	      var infoLine = [];
-	      if (this.props.weather[0]) {
-	        if (this.props.weather[0].page.totalElements) {
-	          var totalElements = this.props.weather[0].page.totalElements;
-	        }
-
-	        if (this.props.weather[0].page.number) {
-	          var number = this.props.weather[0].page.number;
-	          number = number + 1;
-	        } else {
-	          var number = config.DEFALT_PAGE_NUMBER + 1;
-	        }
-
-	        if (this.props.weather[0].page.totalPages) {
-	          var totalPages = this.props.weather[0].page.totalPages;
-	          infoLine.push(_react2.default.createElement(
-	            'div',
-	            { key: 'infoLine' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'col-sm-1 col-xs-1 col-md-1' },
-	              _react2.default.createElement(
-	                'select',
-	                { id: 'lang', className: 'form-control', onChange: this.onChangePageSize, value: this.state.pageSize },
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: config.DEFALT_PAGE_SIZE },
-	                  config.DEFALT_PAGE_SIZE
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: '3' },
-	                  '3'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: '5' },
-	                  '5'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: '10' },
-	                  '10'
-	                )
-	              ),
-	              ' книги на стр.'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              'от общо ',
-	              totalElements
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              ' Стр: ',
-	              number,
-	              ' от  ',
-	              totalPages,
-	              ' '
-	            )
-	          ));
-	        }
-
-	        if (this.props.weather[0]._links.first) {
-	          firstG = this.props.weather[0]._links.first.href.match(/page=([0-9+])/)[1];
-	          navLinks.push(_react2.default.createElement(
-	            'li',
-	            { key: 'first', onClick: this.firstPage },
-	            ' ',
-	            _react2.default.createElement(
-	              'a',
-	              { 'aria-label': 'Previous' },
-	              _react2.default.createElement(
-	                'span',
-	                { 'aria-hidden': 'true' },
-	                '«'
-	              )
-	            )
-	          ));
-	        }
-
-	        if (this.props.weather[0]._links.prev) {
-	          prevG = this.props.weather[0]._links.prev.href.match(/page=([0-9+])/)[1];
-	          navLinks.push(_react2.default.createElement(
-	            'li',
-	            { key: 'prev', onClick: this.prevPage },
-	            _react2.default.createElement(
-	              'a',
-	              null,
-	              'Previous'
-	            )
-	          ));
-	        }
-
-	        if (this.props.weather[0]._links.next) {
-	          nextG = this.props.weather[0]._links.next.href.match(/page=([0-9+])/)[1];
-	          navLinks.push(_react2.default.createElement(
-	            'li',
-	            { key: 'next', onClick: this.nextPage },
-	            _react2.default.createElement(
-	              'a',
-	              null,
-	              'Next'
-	            )
-	          ));
-	        }
-
-	        if (this.props.weather[0]._links.last) {
-	          lastG = this.props.weather[0]._links.last.href.match(/page=([0-9+])/)[1];
-	          navLinks.push(_react2.default.createElement(
-	            'li',
-	            { key: 'last', onClick: this.lastPage },
-	            ' ',
-	            _react2.default.createElement(
-	              'a',
-	              { 'aria-label': 'Next' },
-	              _react2.default.createElement(
-	                'span',
-	                { 'aria-hidden': 'true' },
-	                '»'
-	              )
-	            )
-	          ));
-	        }
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        infoLine,
-	        _react2.default.createElement(
-	          'nav',
-	          null,
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'pagination' },
-	            navLinks
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Pager;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    weather: state.weather,
-	    sortBy: state.sortBy
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    setPageSize: (0, _redux.bindActionCreators)(_set_page_size.setPageSize, dispatch),
-	    fetchWeather: (0, _redux.bindActionCreators)(_index.fetchWeather, dispatch)
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Pager);
-
-/***/ },
-/* 317 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.setPageSize = setPageSize;
-	function setPageSize(size) {
-	  return {
-	    type: 'SET_PAGE_SIZE',
-	    payload: size
-	  };
-	}
 
 /***/ },
 /* 318 */

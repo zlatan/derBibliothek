@@ -1,5 +1,8 @@
 package org.kili.derBibliothek;
 
+import static org.kili.derBibliothek.WebSocketConfiguration.*;
+
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -17,11 +20,8 @@ import org.springframework.stereotype.Component;
 @RepositoryEventHandler(Book.class)
 public class EventHandler {
     private final SimpMessagingTemplate websocket;
-
     private final EntityLinks entityLinks;
-
-    static final String MESSAGE_PREFIX = "/topic";
-
+    JsonObject innerObject = new JsonObject();
 
 
     @Autowired
@@ -32,25 +32,23 @@ public class EventHandler {
 
     @HandleAfterCreate
     public void newBook(Book book) {
+        innerObject.addProperty("ID", book.getId());
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/newBook", getPath(book));
+                MESSAGE_PREFIX + "/newBook", innerObject.getAsJsonObject().toString());
     }
 
     @HandleAfterDelete
     public void deleteBook(Book book) {
+        innerObject.addProperty("ID", book.getId());
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/deleteBook", getPath(book));
+                MESSAGE_PREFIX + "/deleteBook", innerObject.getAsJsonObject().toString());
     }
 
     @HandleAfterSave
     public void updateBook(Book book) {
-        System.out.println("UPDATE!!!");
+        innerObject.addProperty("ID", book.getId());
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/updateBook", getPath(book));
+                MESSAGE_PREFIX + "/updateBook", innerObject.getAsJsonObject().toString());
     }
 
-    private String getPath(Book book) {
-        return this.entityLinks.linkForSingleResource(book.getClass(),
-                book.getId()).toUri().getPath();
-    }
 }

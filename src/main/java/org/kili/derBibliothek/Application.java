@@ -1,5 +1,7 @@
 package org.kili.derBibliothek;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -7,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.io.IOException;
 
 
 @SpringBootApplication
@@ -18,6 +22,7 @@ public class Application {
     }
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
 
     @Bean
     public CommandLineRunner fillBooks(BookRepository brepository, StudentRepository srepository, LibraryCardRecordRepository lrepository) {
@@ -38,6 +43,9 @@ public class Application {
 
             srepository.save(new Student(12,1999,"Muncho","Penchev","11A","qwe123ds2vfve"));
             srepository.save(new Student(21,1999,"Pencho","Munchev","11A","afwef24543253"));
+
+
+
 /*
             BookManagment book= new BookManagment(brepository,srepository,lrepository);
             book.BorrowBook("qwe123ds2vfve","23244532");
