@@ -35,7 +35,7 @@ public class Book {
     private Double price;
 
     @Column(nullable = false)
-    private String signature;
+    private String keywords;
 
     @Column(nullable = false)
     private String deduction;
@@ -43,19 +43,20 @@ public class Book {
     @Column(nullable = false, unique = true)
     private String barCode;
 
+
     @OneToMany(mappedBy = "borrowedBook")
     private List<LibraryCardRecord> libraryCardRecord;
 
 
     protected Book () {}
 
-    public Book(String title, String author, String volume, String yearPublishing, Double price, String signature, String deduction, String barCode) {
+    public Book(String title, String author, String volume, String yearPublishing, Double price, String keywords, String deduction, String barCode) {
         this.title = title;
         this.author = author;
         this.volume = volume;
         this.yearPublishing = yearPublishing;
         this.price = price;
-        this.signature = signature;
+        this.keywords = keywords;
         this.deduction = deduction;
         this.barCode = barCode;
     }
@@ -100,12 +101,12 @@ public class Book {
         this.price = price;
     }
 
-    public String getSignature() {
-        return signature;
+    public String getKeywords() {
+        return keywords;
     }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public String getDeduction() {

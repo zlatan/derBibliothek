@@ -27,12 +27,12 @@ public class Application {
     @Bean
     public CommandLineRunner fillBooks(BookRepository brepository, StudentRepository srepository, LibraryCardRecordRepository lrepository) {
         return (args) -> {
-            brepository.save(new Book("The Singularity Is Near", "Ray Kurzweil", "1", "2005",15.63,"signatura","15-12.04.2011","12232432"));
-            brepository.save(new Book("Reason in History","G.W.F. Hegel" , "1", "1995", 16.29, "signatura", "11-11.1.2111","23244532"));
-            brepository.save(new Book("Singularity Is Near", "Ray Kurzweil", "1", "2005",15.63,"signatura","15-12.04.2011","23411245"));
-            brepository.save(new Book("Reason","G.W.F. Hegel" , "1", "1995", 16.29, "signatura", "11-11.1.2111","23432"));
-	        brepository.save(new Book("Number 5","Author2" , "2", "1995", 16.29, "signatura", "11-11.1.2111","234231232132473287"));
-            brepository.save(new Book("Number 6","Author3" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490323131287"));
+            brepository.save(new Book("The Singularity Is Near", "Ray Kurzweil", "1", "2005",15.63,"biology","15-12.04.2011","12232432"));
+            brepository.save(new Book("Reason in History","G.W.F. Hegel" , "1", "1995", 16.29, "physics", "11-11.1.2111","23244532"));
+            brepository.save(new Book("Singularity Is Near", "Ray Kurzweil", "1", "2005",15.63,"math","15-12.04.2011","23411245"));
+            brepository.save(new Book("Reason","G.W.F. Hegel" , "1", "1995", 16.29, "chem", "11-11.1.2111","23432"));
+	    brepository.save(new Book("Number 5","Author2" , "2", "1995", 16.29, "geography", "11-11.1.2111","234231232132473287"));
+            brepository.save(new Book("Number 6","Author3" , "2", "1995", 16.29, "math", "11-11.1.2111","23490323131287"));
             brepository.save(new Book("Number 7","Author4" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490324667387"));
             brepository.save(new Book("Number 8","Author5" , "2", "1995", 16.29, "signatura", "11-11.1.2111","23490324213213287"));
             brepository.save(new Book("Number 9","Author6" , "2", "1995", 16.29, "signatura", "11-11.1.2111","2349032434587"));
